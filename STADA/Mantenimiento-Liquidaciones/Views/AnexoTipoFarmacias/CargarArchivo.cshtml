@@ -1,0 +1,52 @@
+﻿@model HttpPostedFileBase
+
+@{
+    ViewBag.Title = "Carga Masiva de Anexo Tipo Farmacia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Carga Masiva de Anexo Tipo Farmacia</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("CargarArchivo", "AnexoTipoFarmacias", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model, "Seleccionar Archivo Excel:", new { @class = "control-label" })
+                    <div class="input-group">
+                        <input type="file" name="archivoExcel" id="archivoExcel" class="form-control-file" accept=".xlsx" required />
+                        <div class="input-group-append">
+                            <input type="submit" value="Cargar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
+                </div>
+
+                if (ViewBag.Mensaje != null)
+                {
+                    <div class="alert alert-@(ViewBag.Exito ? "success" : "danger")">
+                        @ViewBag.Mensaje
+                        @if (!ViewBag.Exito && ViewBag.Errores != null)
+                        {
+                            <ul>
+                                @foreach (var error in ViewBag.Errores)
+                                {
+                                    <li>@error</li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="col-md-6">
+            @Html.ActionLink("Descargar Plantilla Excel", "DescargarPlantilla", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Volver a la lista", "Index")
+</div>

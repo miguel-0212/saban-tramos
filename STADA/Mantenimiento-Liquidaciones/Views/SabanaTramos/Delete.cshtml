@@ -1,0 +1,57 @@
+﻿@model Mantenimiento_Liquidaciones.SabanaTramo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SabanaTramo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fRangoMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fRangoMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fDescuento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fDescuento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

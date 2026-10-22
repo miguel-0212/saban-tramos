@@ -1,0 +1,294 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MFormasCobro>
+
+@{
+    ViewBag.Title = "Maestra Formas de cobro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosMFormasCobro")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaMFormasCobro" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Maestra Formas Cobro")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosMFormasCobro" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMFormasCobro">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosMFormasCobro" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaMFormasCobro">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Forma Cobro: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sFormaCobro" />
+                             </div>
+                             
+
+                         </div>
+                         <div class="row col-12 divSeconLineFilter">
+                         </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MFormasCobro>()
+                    .Name("tablaMFormasCobro")
+                    .Excel(excel => excel
+                        .FileName("tablaMFormasCobro.xlsx")
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Inactivar" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.IdFormaCobro).Title("Id Forma Cobro");
+                        columns.Bound(p => p.sFormaCobro).Title("Forma Cobro");
+                        columns.Bound(p => p.iEstado).Title("Estado").ClientTemplate("#= iEstado == 0 ? '<span>Activo</span>' : '<span>Inactivo</span>' #");
+                        columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.sUsuarioActualizacion).Title("sUsuarioActualizacion");
+                    }).ToolBar(toolbar =>
+                    {
+                        toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMFormasCobro')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Scrollable(sc => sc.Enabled(true))
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sFormaCobro);
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMFormasCobro" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMFormasCobro", "MFormasCobroes").Data("additionalDataIndexMFormasCobro"))
+                .Model(model =>
+                {
+                    model.Id(p => p.IdFormaCobro);
+
+                })
+            .Update(update => update.Action("Edit", "MFormasCobroes"))
+            .Destroy(destroy => destroy.Action("Delete", "MFormasCobroes"))
+            .Create(create => create.Action("Create", "MFormasCobroes"))
+            .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+             )
+         )
+        .Editable(editable => editable
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    function onEdit(e) {
+
+        var esCreacion = e.model.isNew();
+        var window = e.container.data("kendoWindow");
+        var updateButton = e.container.find(".k-grid-update");
+        updateButton.text("Guardar Cambios");
+        e.container.find("input[type='text'], textarea, select").each(function () {
+            var fieldName = $(this).attr("name");
+            if (fieldName !== "dFechaActualizacion" && fieldName !== "sUsuarioActualizacion" && fieldName !== "sIdAbonoIVA") {
+                $(this).attr("required", "required"); // Añadir el atributo required
+                $(this).attr("data-val-required", "Este campo es obligatorio."); // Mensaje de validación personalizado
+            }
+        });
+        e.container.find("label[for='IdFormaCobro']").text("Id Forma Cobro");
+        e.container.find("label[for='sFormaCobro']").text("Forma Cobro");
+        e.container.find("label[for='iEstado']").text("Estado");
+        e.container.find("label[for='sUsuarioActualizacion']").text("Usuario Actualizacion");
+
+        if (esCreacion) {
+            e.container.find("input[type='text'], textarea, select").val("");
+            window.title("Crear Nuevo Registro");
+            updateButton.text("Guardar Cambios");
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion");
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+            e.container.find("#iEstado").parents(".k-edit-field").hide();
+            e.container.find("label[for='iEstado']").parents(".k-edit-label").hide();
+            var iEstado = e.container.find("#iEstado");
+            iEstado.val("1");
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+            UsuarioActualizacionInput.attr("readonly", true);
+            UsuarioActualizacionInput.addClass("k-state-disabled");
+
+        } else {
+            // Cambiar el título de la ventana
+            window.title("Editar Registro");
+            e.container.find("input:first").parents(".k-edit-field").hide();
+            e.container.find("label:first").parents(".k-edit-label").hide();
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion"); // Asegúrate de que el ID del campo sea correcto
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+            e.container.find("#sUsuarioActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='sUsuarioActualizacion']").parents(".k-edit-label").hide();
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+            var estadoInput = e.container.find("#iEstado").kendoDropDownList({
+                dataSource: [1, 0], // Solo permite seleccionar 1 o 0
+                optionLabel: "Seleccione un valor", // Etiqueta por defecto
+                valuePrimitive: true, // Para que el valor sea directamente el número
+            }).data("kendoDropDownList");
+        }
+
+    }
+
+    function onGridRemove(e) {
+        e.preventDefault();
+
+        var id = e.model.sIdMFormasCobro;
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Eliminación",
+                closable: false,
+                modal: true,
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+                            dialog.close();
+                        }
+                    },
+                    {
+                        text: 'Eliminar',
+                        primary: true,
+                        action: function () {
+                           // Realizar la eliminación
+                            $.ajax({
+                                url: '@Url.Action("DeleteConfirmed", "MFormasCobro")', // URL de tu acción de eliminación
+                                type: 'POST',
+                                data: { sIdMFormasCobro: id }, // Pasar el ID del registro a eliminar
+                                success: function(result) {
+                                    if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                        e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                        dialog.close();
+                                        // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                    } else {
+                                        alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                    }
+                                },
+                                error: function() {
+                                    alert("Ocurrió un error al intentar eliminar el registro.");
+                                }
+                            });
+
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMFormasCobro").data("kendoGrid");
+        grid.addRow();
+    });
+
+</script>

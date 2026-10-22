@@ -1,0 +1,67 @@
+﻿@model Mantenimiento_Liquidaciones.MMateriales
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MMateriales</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sCodSAPMaterial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sCodSAPMaterial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fPrecio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fPrecio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iIdTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iIdTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

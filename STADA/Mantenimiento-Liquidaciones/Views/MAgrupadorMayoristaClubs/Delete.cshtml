@@ -1,0 +1,56 @@
+﻿@model Mantenimiento_Liquidaciones.MAgrupadorMayoristaClub
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>¿Estás seguro de que quieres eliminar esto?</h3>
+    <div>
+        <h4>MAgrupadorMayoristaClub</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.dFechaFin)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dFechaFin)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.dFechaActualizacion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dFechaActualizacion)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.sUsuarioActualizacion)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Volver a la lista", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

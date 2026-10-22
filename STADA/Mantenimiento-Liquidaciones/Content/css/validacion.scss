@@ -1,0 +1,13 @@
+@import 'variables.scss';
+.classWarningErrorVisible{
+    color: $red;
+}
+.classWarningErrorHide{
+    position: absolute;
+    opacity:0;
+}
+.errorInputAdvFilter{
+    border: 2px solid $red;
+}
+.okInputAdvFilter{
+}

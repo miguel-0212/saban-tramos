@@ -1,0 +1,62 @@
+﻿@model Mantenimiento_Liquidaciones.SabanaTramo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SabanaTramo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        @*Se agrega la visualización del campo fRangoMin, que e parte de la
+        clave primaria del registro pero no se mostraba en la pantalla de detalle.
+        Sin este campo el usuario no podía ver el valor completo que identifica al registro*@
+        <dt>
+            @Html.DisplayNameFor(model => model.fRangoMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fRangoMin)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.fRangoMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fRangoMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fDescuento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fDescuento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

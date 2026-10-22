@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="de789edaa4884e92af4b95347945d647" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MSocios" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MAgrupadorMayoristaClub" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MClub" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MMayorista" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MSubClub" Width="1.5" PointX="1.25" PointY="4.5" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MMateriales" Width="1.5" PointX="3.75" PointY="4.375" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.AnexoCambioMaterial" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.AnexoClubSubClub" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.AnexoExpositores" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.AnexoTipoFarmacia" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.AnexoTipoVenta" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.AnexoClubSocios" Width="2.125" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MAbono_IVA" Width="1.5" PointX="11.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MFormasCobro" Width="1.5" PointX="11.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MPeriodicidad" Width="1.5" PointX="9.75" PointY="11.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MTipoDescuento" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MTipoFarmacia" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MTipoMaterial" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MTipoTramo" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.MTipoVenta" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.sabana" Width="2" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.sabanaCG" Width="1.5" PointX="14.375" PointY="5.75" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.SabanaCGMateriale" Width="1.5" PointX="17.5" PointY="9.375" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.SabanaCGTramo" Width="1.5" PointX="19.875" PointY="9.625" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.sabanaGrupos" Width="2.875" PointX="16.625" PointY="0.875" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.SabanaTramo" Width="2.875" PointX="19.875" PointY="3.25" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.SabanaTramosTipoMaterial" Width="2.25" PointX="20.125" PointY="1" />
+        <EntityTypeShape EntityType="CLUBS_AX_TESTModel.SabanaTramosTipoVenta" Width="2.5" PointX="22.875" PointY="1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

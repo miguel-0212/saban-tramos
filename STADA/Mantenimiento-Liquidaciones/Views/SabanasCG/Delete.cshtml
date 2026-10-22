@@ -1,0 +1,105 @@
+﻿@model Mantenimiento_Liquidaciones.sabanaCG
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>sabanaCG</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sMayoristaAgrupador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sMayoristaAgrupador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdPeriodicidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPeriodicidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTipoVariableCG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTipoVariableCG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSabanaCGMat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdSabanaCGMat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTramo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTramo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImpCosteGestion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImpCosteGestion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PTCosteGestion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PTCosteGestion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

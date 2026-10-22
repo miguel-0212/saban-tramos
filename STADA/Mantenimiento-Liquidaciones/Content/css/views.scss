@@ -1,0 +1,93 @@
+@import 'variables.scss';
+.btn.btn-secondary {
+    font-size: $fontSizeButtons;
+}
+.buttonSearchFilters{
+    color: $white;
+    margin-right: 2%;
+    margin-top: 13px;
+}
+.showHideFilters{    
+    color: $white!important;
+}
+.labelFilters{
+    font-size:$fontSizeApp;
+    font-weight: bold;
+    position:absolute;
+}
+.inputsFilters{
+    font-size:$fontSizeApp;
+    margin-top: 1.1rem;
+    height:1.5rem;
+}
+.selectsCss{
+    width: 167px;
+    height: 27px;
+}
+.divSeconLineFilter{
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+}
+.topTableKendoClass{
+    margin-top:15px;
+}
+.tableKendoClass{
+    height:$heightTablesKendo;
+}
+.divFiltros {
+    width: 100%;
+    margin: 0 auto;
+    font-size:$fontSizeApp;
+    margin-bottom: 20px;
+}
+.buttonsRightToolbar{
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+}
+.iconDownloadClass{
+    font-size: 13px;
+    cursor:pointer;
+    :hover{
+        font-size: 15px;
+        cursor:pointer;
+    }
+}
+.turnArrow {
+    left: 0;
+    font-size: $sizeButtonTurn;
+    color: #005eb8 !important;
+    //padding: 1rem 1rem 1rem .75rem;
+    top: 0;
+    font-style: normal !important;
+    font-weight: normal;
+    cursor: pointer;
+    :hover{
+        cursor: pointer;
+        font-size: $sizeButtonTurnHover;
+    }
+}
+.hiddenDivsForms{
+    margin-top: 0rem!important;
+}
+.colorIcons{
+    color:$redStada!important;
+}
+.labelTipoAltaModi{
+    float:right;
+    font-size:$fontSizeApp;
+}
+.infoClientesCodPostal{    
+    font-size: 20px;
+    :hover{
+        font-size:22px;
+    }
+}
+.labelAdvFilters {
+    font-size: $fontSizeApp;
+    font-weight: bold;
+    position: absolute;
+}
+.kendoClass{
+    font-size:$fontSizeApp;
+}

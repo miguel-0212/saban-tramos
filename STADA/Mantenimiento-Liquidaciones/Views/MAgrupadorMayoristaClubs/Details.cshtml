@@ -1,0 +1,50 @@
+﻿@model Mantenimiento_Liquidaciones.MAgrupadorMayoristaClub
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>MAgrupadorMayoristaClub</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.dFechaFin)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dFechaFin)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.dFechaActualizacion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.dFechaActualizacion)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.sUsuarioActualizacion)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Volver a la lista", "Index")
+    </p>
+</body>
+</html>

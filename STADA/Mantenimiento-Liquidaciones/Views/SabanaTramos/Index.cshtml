@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.SabanaTramo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@*Se agrega u bloque para mostrar mensaje de error si el controlador
+    no pudo cargar los datos*@
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        @*Se agrega el encabezado de la columna fRangoMin, que formaba parte
+          de la clave primaria pero no se estaba mostrando en la tabla*@
+        <th>
+            @Html.DisplayNameFor(model => model.fRangoMin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fRangoMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fDescuento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*Se agrega la celda con el valor de fRangoMin para cada fila,
+                correspondiente al encabezado agregado en cambio anterior*@
+            <td>
+                @Html.DisplayFor(modelItem => item.fRangoMin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fRangoMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fDescuento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dFechaActualizacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sUsuarioActualizacion)
+            </td>
+            <td>
+                @* Sin cambios *@
+                @Html.ActionLink("Edit", "Edit", new { idTramo = item.IdTramo, fRangoMin = item.fRangoMin }) |
+                @Html.ActionLink("Details", "Details", new { idTramo = item.IdTramo, fRangoMin = item.fRangoMin }) |
+                @Html.ActionLink("Delete", "Delete", new { idTramo = item.IdTramo, fRangoMin = item.fRangoMin })
+            </td>
+        </tr>
+    }
+
+</table>

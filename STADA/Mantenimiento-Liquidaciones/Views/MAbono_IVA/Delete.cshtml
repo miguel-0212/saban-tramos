@@ -1,0 +1,81 @@
+﻿@model Mantenimiento_Liquidaciones.MAbono_IVA
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+<div>
+    <h4>MAbono_IVA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sAbonoIVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sAbonoIVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sIdDivision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sIdDivision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sIdRed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sIdRed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fIVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fIVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iEstado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

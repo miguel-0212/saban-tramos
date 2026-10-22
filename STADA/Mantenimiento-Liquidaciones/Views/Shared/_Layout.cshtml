@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimiento Liquidaciones</title>
+    @{
+        GESTCRMCEEntities dbGestcrmce = new GESTCRMCEEntities();
+        var userDomain = "Usuario de prueba";
+        var user = "Usuario de prueba";
+        var nameUser = "Usuario de prueba";
+        var nomImg = "Usuario de prueba";
+        var nomImgIcon = "Usuario de prueba";
+        var urlAppsStada = "Usuario de prueba";
+        var appPath = Request.ApplicationPath;
+        var urlApp = Request.Url.ToString().Split(new string[] { appPath }, StringSplitOptions.None)[0] + appPath;
+        var userRol = "Usuario de prueba";
+    }
+    @Styles.Render("~/Content/Kendocss")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendoUI")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ownjs")
+
+    <link rel="icon" type="image/png" href='~/Content/img/@nomImgIcon' />
+</head>
+<body id="body" class="bodyLayout" @*style="overflow-y:hidden;overflow-x:hidden;"*@>
+    <div id="loadingICon" class="iconLoagingHide">
+        <div id="loader-primary"></div>
+    </div>
+    <script>
+        kendo.culture("es-ES");
+    </script>
+    <input id="nameUserHiddenLayout" type="hidden" value='@nameUser' />
+    <div id="mainBody" class="page-wrapper chiller-theme">
+        @(Html.Kendo().AppBar()
+            .Name("menuLayout")
+            .Position(AppBarPosition.Top)
+            .PositionMode(AppBarPositionMode.Sticky)
+            .ThemeColor(AppBarThemeColor.Light)
+            .HtmlAttributes(new { @Class = "" })
+            .Items(items =>
+            {
+                items.Add().TemplateId("menuTemplate").Type(AppBarItemType.ContentItem);
+                items.Add().Type(AppBarItemType.Spacer);
+                items.Add().Template("<a><i class='fa fa-user iconUserMove'></i>" + @nameUser + "</a>").Type(AppBarItemType.ContentItem);
+                items.Add().Type(AppBarItemType.Spacer).Width("16px");
+                items.Add().Template("<a title='STADA' href='" + @urlAppsStada + "'><img src='" + @urlApp + "/Content/img/stadaIcono.png' style='' /></a>").Type(AppBarItemType.ContentItem);
+            })
+        )
+        <nav id="sidebar" class="sidebar-wrapper menu-text">
+            <div class="sidebar-brand">
+                <div>
+                    <a href='@urlApp'>
+                        <img src='~/Content/images/logoML.png' title="Mantenimiento Liquidaciones" style="width: 32px; height: 32px;" />Mantenimiento Liquidaciones
+                    </a>
+                </div>
+                <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div>
+                    <span style="font-weight: bold;">
+                        Maestros
+                    </span>
+                </div>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MAbono_IVA/Index' class="buttonLayoutURL removeSessionData">M Abono IVA</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction" hidden>
+                            <a data-url='MAgrupadorMayoristaClubs/Index' class="buttonLayoutURL removeSessionData">M Agrupador Mayorista Club</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MClub/Index' class="buttonLayoutURL removeSessionData">M Clubs</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MFormasCobroes/Index' class="buttonLayoutURL removeSessionData">M Formas Cobros</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MMateriales/Index' class="buttonLayoutURL removeSessionData">M Materiales</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MMayoristas/Index' class="buttonLayoutURL removeSessionData">M Mayoristas</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MPeriodicidad/Index' class="buttonLayoutURL removeSessionData">M Periodicidad</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MSocios/Index' class="buttonLayoutURL removeSessionData">M Socios</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MSubClubs/Index' class="buttonLayoutURL removeSessionData">M SubClubs</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MTipoDescuento/Index' class="buttonLayoutURL removeSessionData">M Tipo Descuento</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MTipoFarmacia/Index' class="buttonLayoutURL removeSessionData">M Tipo Farmacia</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MTipoMateriales/Index' class="buttonLayoutURL removeSessionData">M Tipo Materiales</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MTipoTramo/Index' class="buttonLayoutURL removeSessionData">M Tipo Tramo</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='MTipoVenta/Index' class="buttonLayoutURL removeSessionData">M Tipo Venta</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="sidebar-header">
+                    <div>
+                        <span style="font-weight: bold;">
+                            Anexos
+                        </span>
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='AnexoCambioMateriales/Index' class="buttonLayoutURL removeSessionData">Anexo Cambio Materiales</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='AnexoClubSocios/Index' class="buttonLayoutURL removeSessionData">Anexo Club Socios</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='AnexoClubSubClubs/Index' class="buttonLayoutURL removeSessionData">Anexo Club Subclubs</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='AnexoExpositores/Index' class="buttonLayoutURL removeSessionData">Anexo Expositores</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='AnexoTipoFarmacias/Index' class="buttonLayoutURL removeSessionData">Anexo Tipo Farmacias</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='AnexoTipoVentas/Index' class="buttonLayoutURL removeSessionData">Anexo Tipo Ventas</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebar-header">
+                    <div>
+                        <span style="font-weight: bold;">
+                            Sabanas
+                        </span>
+                    </div>
+                </div>
+
+                <div class="sidebar-menu">
+                    <ul>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='Sabanas/Index' class="buttonLayoutURL removeSessionData">Sabana CC</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            @*<a data-url='SabanasCG/Index' class="buttonLayoutURL removeSessionData">Sabana Tramos</a>*@
+                            @*Sabana Tramos apuntaba a SabanasCG/Index (pantalla equivocada); ahora apunta a SabanaTramosController*@
+                            <a data-url='SabanaTramos/Index' class="buttonLayoutURL removeSessionData">Sabana Tramos</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='SabanasCG/Index' class="buttonLayoutURL removeSessionData">Sabana GC</a>
+                        </li>
+                        <li class="sidebar-dropdown globalAction">
+                            <a data-url='SabanasCG/Index' class="buttonLayoutURL removeSessionData">Sabana GC Tramos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="wrapper">
+            <div class="container body-content layoutContainer">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/1054e5872b.js" crossorigin="anonymous"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+@(Html.Kendo().Dialog()
+    .Name("dialogError")
+    .Title("Maestras")
+    .Visible(false)
+    .Content(
+    "<div class='modal-body'>" +
+        "<div id='divErrorTitle'></div>" +
+        "<div class='row'>" +
+            "<div class='col-2 ' id='divErrorImage' style='align-self: center;'></div>" +
+            "<div class='col-10' id='divErrorBody'></div>" +
+        "</div>" +
+    "</div>")
+    .Width(400)
+    .Modal(true)
+    .ButtonLayout("normal")
+    .Closable(true)
+    .Actions(actions =>
+    {
+        actions.Add().Text("Aceptar");
+    })
+)
+@(Html.Kendo().Dialog()
+    .Name("dialogMessage")
+    .Title("Maestras")
+    .Visible(false)
+    .Content(
+    "<div class='modal-body'>" +
+        "<div id='messageDialogTitle'></div>" +
+        "<div class='row'>" +
+            "<div class='col-2 ' id='messageDialogImage' style='align-self: center;'></div>" +
+            "<div class='col-10' id='messageDialogBody'></div>" +
+            "<input type='hidden' id='hiddenOptionDialogWindows' />" +
+        "</div>" +
+    "</div>"
+    )
+    .Width(400)
+    .Modal(true)
+    .ButtonLayout("normal")
+    .Closable(true)
+    .Actions(actions =>
+    {
+        actions.Add().Text("Aceptar").CssClass("aceptarMessageModal");
+    })
+)
+<script id="menuTemplate" type="text/x-kendo-tmpl">
+    <nav id="menuNav">
+        <a id="show-sidebar">
+            <i class="fas fa-bars"></i>
+        </a>
+    </nav>
+</script>

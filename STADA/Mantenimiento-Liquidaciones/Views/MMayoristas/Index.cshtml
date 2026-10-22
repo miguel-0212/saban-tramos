@@ -1,0 +1,293 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MMayorista>
+
+@{
+    ViewBag.Title = "Maestro Mayoristas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosMMayorista")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaMMayorista" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Maestro Mayoristas")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosMMayorista" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMMayorista">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosMMayorista" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaMMayorista">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Mayorista: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sMayoristaAgrupador" />
+                             </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">IdTipo Farmacia por Defecto: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="IdTipoFarmaciaPorDefecto" />
+                            </div>
+
+
+                         </div>
+                         <div class="row col-12 divSeconLineFilter">
+                         </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MMayorista>()
+                    .Name("tablaMMayorista")
+                    .Excel(excel => excel
+                        .FileName("tablaMMayorista.xlsx")
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Eliminar" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.sIdMayoristaAgrupador).Title("Id Mayorista");
+                        columns.Bound(p => p.sMayoristaAgrupador).Title("Mayorista");
+                        columns.Bound(p => p.IdTipoFarmaciaPorDefecto).Title("idTipo Farmacia por Defecto");
+                        columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.sUsuarioActualizacion).Title("sUsuarioActualizacion");
+                    }).ToolBar(toolbar =>
+                    {
+                        toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMMayorista')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Scrollable(sc => sc.Enabled(true))
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sIdMayoristaAgrupador);
+                    s.Field(c => c.sMayoristaAgrupador);
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMMayorista" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMMayorista", "MMayoristas").Data("additionalDataIndexMMayorista"))
+                .Model(model =>
+                {
+                    model.Id(p => p.sIdMayoristaAgrupador);
+
+                })
+            .Update(update => update.Action("Edit", "MMayoristas"))
+            .Destroy(destroy => destroy.Action("Delete", "MMayoristas"))
+            .Create(create => create.Action("Create", "MMayoristas"))
+            .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+                .RequestEnd("function(e) { onRequestEnd(e, 'tablaMMayorista'); }")
+             )
+         )
+        .Editable(editable => editable
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    function onEdit(e) {
+
+        var esCreacion = e.model.isNew();
+        var window = e.container.data("kendoWindow");
+        var updateButton = e.container.find(".k-grid-update");
+        updateButton.text("Guardar Cambios");
+        e.container.find("input[type='text'], textarea, select").each(function () {
+            var fieldName = $(this).attr("name");
+            if (fieldName !== "dFechaActualizacion" && fieldName !== "sUsuarioActualizacion" && fieldName !== "sIdAbonoIVA") {
+                $(this).attr("required", "required"); // Añadir el atributo required
+                $(this).attr("data-val-required", "Este campo es obligatorio."); // Mensaje de validación personalizado
+            }
+        });
+        e.container.find("label[for='sIdMayoristaAgrupador']").text("Id Mayorista Agrupador");
+        e.container.find("label[for='sMayoristaAgrupador']").text("Mayorista Agrupador");
+        e.container.find("label[for='IdTipoFarmaciaPorDefecto']").text("Id TipoFarmacia Por Defecto");
+        e.container.find("label[for='sUsuarioActualizacion']").text("Usuario Actualizacion");
+
+
+        if (esCreacion) {
+            e.container.find("input[type='text'], textarea, select").val("");
+            window.title("Crear Nuevo Registro");
+            updateButton.text("Guardar Cambios");
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion");
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+            UsuarioActualizacionInput.attr("readonly", true);
+            UsuarioActualizacionInput.addClass("k-state-disabled");
+
+        } else {
+            // Cambiar el título de la ventana
+            window.title("Editar Registro");
+            e.container.find("input:first").parents(".k-edit-field").hide();
+            e.container.find("label:first").parents(".k-edit-label").hide();
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion"); // Asegúrate de que el ID del campo sea correcto
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+            e.container.find("#sUsuarioActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='sUsuarioActualizacion']").parents(".k-edit-label").hide();
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+        }
+
+    }
+
+    function onGridRemove(e) {
+        e.preventDefault();
+
+        var id = e.model.sIdMMayorista;
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Eliminación",
+                closable: false,
+                modal: true,
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+                            dialog.close();
+                        }
+                    },
+                    {
+                        text: 'Eliminar',
+                        primary: true,
+                        action: function () {
+                           // Realizar la eliminación
+                            $.ajax({
+                                url: '@Url.Action("Delete", "MMayoristas")', // URL de tu acción de eliminación
+                                type: 'POST',
+                                data: { sIdMMayorista: id }, // Pasar el ID del registro a eliminar
+                                success: function(result) {
+                                    if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                        e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                        dialog.close();
+                                        // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                    } else {
+                                        alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                    }
+                                },
+                                error: function() {
+                                    alert("Ocurrió un error al intentar eliminar el registro.");
+                                }
+                            });
+
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMMayorista").data("kendoGrid");
+        grid.addRow();
+    });
+
+</script>

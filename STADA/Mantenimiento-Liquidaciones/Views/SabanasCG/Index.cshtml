@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.sabanaCG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sMayoristaAgrupador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPeriodicidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdTipoVariableCG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdSabanaCGMat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdTramo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImpCosteGestion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PTCosteGestion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dFechaFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sMayoristaAgrupador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPeriodicidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdTipoVariableCG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdSabanaCGMat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdTramo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImpCosteGestion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PTCosteGestion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dFechaFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dFechaActualizacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sUsuarioActualizacion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

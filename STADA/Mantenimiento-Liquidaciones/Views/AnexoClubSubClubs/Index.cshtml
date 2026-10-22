@@ -1,0 +1,290 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.AnexoClubSubClub>
+
+@{
+    ViewBag.Title = "Anexo ClubSubClub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosAnexoClubSubClub")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaAnexoClubSubClub" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Anexo Club Sub Club")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosAnexoClubSubClub" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaAnexoClubSubClub">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosAnexoClubSubClub" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaAnexoClubSubClub">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Id Mayorista: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sIdMayorista" />
+                             </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">Red: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sRed" />
+                            </div>
+                               <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">IdTipo Farmacia: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="IdTipoFarmacia" />
+                            </div>
+
+                         </div>
+                         <div class="row col-12">
+                             <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">Tipo Venta: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sTipoVenta" />
+                            </div>
+                             <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                               <label class="labelFilters">idSubTipo Venta: </label>
+                               <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="IdTipoSubVenta" />
+                           </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                               <label class="labelFilters">Zona: </label>
+                               <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sZona" />
+                           </div>
+
+                        </div>
+                         <div class="row col-12 divSeconLineFilter">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Fecha Inicio:</label>
+                                 <input type="date" class="inputsFilters filterInputTable filterClassSaveData" id="dFechaIni" />
+                             </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                  <label class="labelFilters">Fecha Fin:</label>
+                                  <input type="date" class="inputsFilters filterInputTable filterClassSaveData" id="dFechaFin" />
+                              </div>
+                         </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+
+    </div>
+    <div>
+        @(Html.Kendo().Grid<AnexoClubSubClub>()
+                    .Name("tablaAnexoClubSubClub")
+                    .Excel(excel => excel
+                        .FileName("tablaAnexoClubSubClub.xlsx")
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Eliminar" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.sIdMayorista).Title("Mayorista");
+                        columns.Bound(p => p.sRed).Title("Red");
+                        columns.Bound(p => p.IdTipoFarmacia).Title("IdTipoFarmacia");
+                        columns.Bound(p => p.sTipoVenta).Title("Tipo Venta");
+                        columns.Bound(p => p.IdTipoSubVenta).Title("idSubTipo Venta");
+                        columns.Bound(p => p.sZona).Title("Zona");
+                        columns.Bound(p => p.sCooperativa).Title("Cooperativa");
+                        columns.Bound(p => p.sClub).Title("idClub");
+                        columns.Bound(p => p.sSubClub).Title("idSubClub");
+                        columns.Bound(p => p.dFechaIni).Title("Fecha Inicio").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.dFechaFin).Title("Fecha Fin").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.sComentarios).Title("Comentario");
+                        columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.sUsuarioActualizacion).Title("Usuario Actualización");
+
+                    }).ToolBar(toolbar =>
+                    {
+                    toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaAnexoClubSubClub')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                     <a class="k-button k-button-icontext" href="@Url.Action("CargarArchivo", "AnexoClubSubClubs")">
+                         <span class="k-icon k-i-upload"></span>Carga Masiva
+                     </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Scrollable(sc => sc.Enabled(true))
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sIdMayorista);
+                    s.Field(c => c.sRed);
+
+                    s.Field(c => c.sTipoVenta);
+
+                    s.Field(c => c.sZona);
+                    s.Field(c => c.sCooperativa);
+                    s.Field(c => c.sClub);
+                    s.Field(c => c.sSubClub);
+                    s.Field(c => c.sComentarios);
+
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaAnexoClubSubClub" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadAnexoClubSubClub", "AnexoClubSubClubs").Data("additionalDataIndexAnexoClubSubClub"))
+                .Model(model =>
+                {
+                    model.Id(p => p.sIdMayorista);
+
+                })
+            .Update(update => update.Action("Edit", "AnexoClubSubClubs"))
+            .Destroy(destroy => destroy.Action("Delete", "AnexoClubSubClubs"))
+            .Create(create => create.Action("Create", "AnexoClubSubClubs"))
+            .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+             )
+         )
+        .Editable(editable => editable
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    
+
+    function onGridRemove(e) {
+        e.preventDefault();
+
+        var id = e.model.sIdAnexoClubSubClub;
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Eliminación",
+                closable: false,
+                modal: true,
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+                            dialog.close();
+                        }
+                    },
+                    {
+                        text: 'Eliminar',
+                        primary: true,
+                        action: function () {
+                           // Realizar la eliminación
+                            $.ajax({
+                                url: '@Url.Action("Delete", "AnexoClubSubClubs")', // URL de tu acción de eliminación
+                                type: 'POST',
+                                data: { sIdAnexoClubSubClub: id }, // Pasar el ID del registro a eliminar
+                                success: function(result) {
+                                    if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                        e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                        dialog.close();
+                                        // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                    } else {
+                                        alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                    }
+                                },
+                                error: function() {
+                                    alert("Ocurrió un error al intentar eliminar el registro.");
+                                }
+                            });
+
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaAnexoClubSubClub").data("kendoGrid");
+        grid.addRow();
+    });
+
+</script>

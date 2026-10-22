@@ -1,0 +1,475 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MSocios>
+
+@{
+    ViewBag.Title = "Maestra Socios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosMSocios")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaMSocios" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Maestra Socios")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosMSocios" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMSocios">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosMSocios" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaMSocios">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Id Cliente Liquidacion: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sIdSocio" />
+                             </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">NIF Cliente: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sNIF" />
+                            </div>
+                               <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">Cod Cliente SAP: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sCodSAP" />
+                            </div>
+
+                         </div>
+
+                         <div class="row col-12 divSeconLineFilter">
+                               <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                     <label class="labelFilters">Direccion: </label>
+                                     <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sDireccion" />
+                                 </div>
+                                  <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                    <label class="labelFilters">CP: </label>
+                                    <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sCP" />
+                                </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Fecha Actualizacion:</label>
+                                 <input type="date" class="inputsFilters filterInputTable filterClassSaveData" id="dFechaActualizacion" />
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MSocios>()
+                    .Name("tablaMSocios")
+                    .Excel(excel => excel
+                        .FileName("tablaMSocios.xlsx")
+                        .AllPages(true)
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Eliminar" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.sIdSocio).Title("Id Cliente Liquidacion");
+                        columns.Bound(p => p.sCodSAP).Title("Cod Cliente SAP");
+                        columns.Bound(p => p.sNIF).Title("NIF Cliente");
+                        columns.Bound(p => p.sNombreFcia).Title("Nombre Cliente");
+                        columns.Bound(p => p.sDireccion).Title("Dirección");
+                        columns.Bound(p => p.sCP).Title("CP");
+                        columns.Bound(p => p.sPoblacion).Title("Población");
+                        columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                    }).ToolBar(toolbar =>
+                    {
+                    toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMSocios')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                     <a class="k-button k-button-icontext" href="@Url.Action("CargarArchivo", "MSocios")">
+                         <span class="k-icon k-i-upload"></span>Carga Masiva
+                     </a>
+                     <a id="deleteSelected" class="k-button k-button-icontext" href="#">
+                         <span class="k-icon fas fa-trash-alt"></span>Eliminar Seleccionados
+                     </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Scrollable(sc => sc.Enabled(true))
+                .Selectable(selectable => selectable
+                    .Mode(GridSelectionMode.Multiple) // Habilita la selección múltiple
+                    .Type(GridSelectionType.Row) // Selecciona filas completas
+                )
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sCodSAP);
+                    s.Field(c => c.sNIF);
+                    s.Field(c => c.sNombreFcia);
+                    s.Field(c => c.sDireccion);
+                    s.Field(c => c.sCP);
+                    s.Field(c => c.sPoblacion);
+                    s.Field(c => c.sIdSocio);
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMSocios" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                    events.Remove("onGridRemove");
+                })
+
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMSocios", "MSocios").Data("additionalDataIndexMSocios"))
+                .Model(model =>
+                {
+                    model.Id(p => p.iVirtualId);
+                    model.Field(p => p.sCodSAP).Editable(true);
+
+                    model.Field(p => p.sNIF);
+                    model.Field(p => p.sNombreFcia);
+                    model.Field(p => p.sDireccion).Editable(true);
+                    model.Field(p => p.sCP).Editable(true);
+                })
+            .Update(update => update.Action("Edit", "MSocios").Data("recargarTabla"))
+            .Destroy(destroy => destroy.Action("Delete", "MSocios", new {id = "#= iVirtualId #" }))
+            .Create(create => create.Action("Create", "MSocios"))
+            .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+
+             )
+         )
+        .Editable(editable => editable
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+
+
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    function onEdit(e) {
+
+        var esCreacion = e.model.isNew();
+        var window = e.container.data("kendoWindow");
+        var updateButton = e.container.find(".k-grid-update");
+        updateButton.text("Guardar Cambios");
+        e.container.find("input[type='text'], textarea, select").each(function () {
+            var fieldName = $(this).attr("name");
+            if (fieldName !== "dFechaActualizacion" && fieldName !== "sUsuarioActualizacion" && fieldName !== "sIdAbonoIVA") {
+                $(this).attr("required", "required"); // Añadir el atributo required
+                $(this).attr("data-val-required", "Este campo es obligatorio."); // Mensaje de validación personalizado
+            }
+        });
+        e.container.find("label[for='sIdSocio']").text("Id Cliente Liquidacion");
+        e.container.find("label[for='sCodSAP']").text("Cod Cliente SAP");
+        e.container.find("label[for='sNIF']").text("NIF Cliente");
+        e.container.find("label[for='sNombreFcia']").text("Nombre Cliente");
+        e.container.find("label[for='sDireccion']").text("Dirección");
+        e.container.find("label[for='sCP']").text("CP");
+        e.container.find("label[for='sPoblacion']").text("Población");
+        e.container.find("#iVirtualId").parents(".k-edit-field").hide();
+        e.container.find("label[for='iVirtualId']").parents(".k-edit-label").hide();
+        e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+        e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+        var fechaActualizacionInput = e.container.find("#dFechaActualizacion");
+        fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff"));
+        e.container.find("#sUsuarioActualizacion").parents(".k-edit-field").hide();
+        e.container.find("label[for='sUsuarioActualizacion']").parents(".k-edit-label").hide();
+        var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+        var nameUser = $("#nameUserHiddenLayout").val();
+        UsuarioActualizacionInput.val(nameUser);
+
+        if (esCreacion) {
+            e.container.find("input[type='text'], textarea, select").val("");
+            window.title("Crear Nuevo Registro");
+            updateButton.text("Guardar Cambios");
+
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+            UsuarioActualizacionInput.attr("readonly", true);
+            UsuarioActualizacionInput.addClass("k-state-disabled");
+
+        } else {
+            window.title("Editar Registro");
+            e.container.find("input:first").parents(".k-edit-field").hide();
+            e.container.find("label:first").parents(".k-edit-label").hide();
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion"); // Asegúrate de que el ID del campo sea correcto
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+
+        }
+
+    }
+
+    function onGridRemove(e) {
+        e.preventDefault();
+        var sIdSocio = e.model.sIdSocio; // Obtiene el ID del socio a eliminar
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Eliminación",
+                closable: false,
+                modal: true,
+                content: "¿Estás seguro de que deseas eliminar este registro?",
+                actions: [
+                    { text: 'Cancelar', action: function () { dialog.close(); recargarTabla("tablaMSocios"); } },
+                    {
+                        text: 'Eliminar',
+                        primary: true,
+                        action: function () {
+                           $.ajax({
+                            url: '@Url.Action("Delete", "MSocios")',
+                               type: 'POST',
+                               data: { sIdSocio: sIdSocio },
+                            success: function(result) {
+                                if (result.success) {
+                                    e.sender.dataSource.remove(e.model);
+                                    dialog.close();
+                                    // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                } else {
+                                    alert("Error al eliminar el socio: " + result.message);
+                                }
+                            },
+                            error: function() {
+                                alert("Ocurrió un error al intentar eliminar el socio.");
+                            }
+                        });
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        dialog.open();
+    }
+
+
+    function onGridRemoveold(e) {
+        e.preventDefault();
+
+        var id = e.model.sIdAbonoIVA;
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Eliminación",
+                closable: false,
+                modal: true,
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+                            dialog.close();
+                        }
+                    },
+                    {
+                        text: 'Eliminar',
+                        primary: true,
+                        action: function () {
+                           // Realizar la eliminación
+                            $.ajax({
+                                url: '@Url.Action("Delete", "MSocios")', // URL de tu acción de eliminación
+                                type: 'POST',
+                                data: { sIdAbonoIVA: id }, // Pasar el ID del registro a eliminar
+                                success: function(result) {
+                                    if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                        e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                        dialog.close();
+                                        // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                    } else {
+                                        alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                    }
+                                },
+                                error: function() {
+                                    alert("Ocurrió un error al intentar eliminar el registro.");
+                                }
+                            });
+
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMSocios").data("kendoGrid");
+        grid.addRow();
+    });
+    // @Html.ActionLink("Cargar Masivamente", "CargarArchivo")
+     $("#deleteSelected").click(function(e) {
+     e.preventDefault();
+
+     var grid = $("#tablaMClub").data("kendoGrid");
+     var selectedRows = grid.select();
+     var selectedData = [];
+
+     selectedRows.each(function() {
+         var dataItem = grid.dataItem(this);
+         selectedData.push({
+             sIdSocio: dataItem.sIdSocio
+         });
+     });
+
+     if (selectedData.length === 0) {
+         alert("Por favor seleccione al menos un club para eliminar.");
+         return;
+     }
+
+     var dialog = $("#dialog-confirmacion").data("kendoDialog");
+     if (!dialog) {
+         dialog = $("#dialog-confirmacion").kendoDialog({
+             width: "450px",
+             title: "Confirmar Eliminación",
+             closable: false,
+             modal: true,
+             actions: [
+                 {
+                     text: 'Cancelar',
+                     action: function () {
+                         dialog.close();
+                     }
+                 },
+                 {
+                     text: 'Eliminar',
+                     primary: true,
+                     action: function () {
+                         // Realizar la eliminación masiva
+                         $.ajax({
+                             url: '@Url.Action("MassDelete", "MSocios")', // URL de tu acción de eliminación masiva
+                             type: 'POST',
+                             contentType: 'application/json',
+                             data: JSON.stringify(selectedData), // Envía los datos seleccionados
+                             success: function(result) {
+                                 if (result.success) {
+                                     // Elimina los registros de la grilla
+                                     selectedRows.each(function() {
+                                         grid.removeRow($(this));
+                                     });
+                                     alert(result.message);
+                                     // Refrescar el grid
+                                     grid.dataSource.read();
+                                     grid.refresh();
+                                     // Desmarcar todas las filas seleccionadas
+                                     grid.clearSelection();
+                                     window.recargarTabla("tablaMClubs");
+                                     dialog.close();
+                                 } else {
+                                     alert("Error al eliminar los registros: " + result.message);
+                                 }
+                             }
+                         });
+                     }
+                 }
+             ]
+         }).data("kendoDialog");
+     }
+
+     dialog.open(); // Abre el diálogo de confirmación
+ });
+
+</script>
+<div id="modalCargaMasiva" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Carga Masiva de Socios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileUpload" accept=".xlsx" />
+                <button id="btnCargar" class="btn btn-primary">Cargar</button>
+                <button id="btnDescargar" class="btn btn-secondary">Descargar Plantilla</button>
+                <!--<button id="btnDescargarPlantillaCompleta" class="btn btn-secondary">Descargar Plantilla Masiva</button>-->
+                <ul id="errorList"></ul>
+            </div>
+        </div>
+    </div>
+</div>

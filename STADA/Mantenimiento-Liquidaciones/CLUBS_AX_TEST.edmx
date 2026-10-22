@@ -1,0 +1,2522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CLUBS_AX_TESTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnexoCambioMaterial">
+          <Key>
+            <PropertyRef Name="CN_old" />
+            <PropertyRef Name="dFechaInicio" />
+          </Key>
+          <Property Name="CN_old" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="CN_NEW" Type="varchar" MaxLength="6" />
+          <Property Name="SAP_old" Type="varchar" MaxLength="8" />
+          <Property Name="SAP_new" Type="varchar" MaxLength="8" />
+          <Property Name="dFechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="AnexoClubSocios">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdRed" />
+            <PropertyRef Name="sIdSocio" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sIdRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sIdSocio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="iFormaCobro" Type="int" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="AnexoClubSubClub">
+          <Key>
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sRed" />
+            <PropertyRef Name="IdTipoFarmacia" />
+            <PropertyRef Name="IdTipoSubVenta" />
+            <PropertyRef Name="sZona" />
+            <PropertyRef Name="sCooperativa" />
+            <PropertyRef Name="sClub" />
+            <PropertyRef Name="sSubClub" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayorista" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sTipoFarmacia" Type="nvarchar(max)" />
+          <Property Name="IdTipoFarmacia" Type="int" Nullable="false" />
+          <Property Name="sTipoVenta" Type="varchar(max)" />
+          <Property Name="IdTipoSubVenta" Type="int" Nullable="false" />
+          <Property Name="sZona" Type="int" Nullable="false" />
+          <Property Name="sCooperativa" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="sClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sSubClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="sComentarios" Type="nvarchar" MaxLength="512" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="AnexoExpositores">
+          <Key>
+            <PropertyRef Name="sCodigoExpositor" />
+            <PropertyRef Name="IdMayorista" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sCodigoExpositor" Type="bigint" Nullable="false" />
+          <Property Name="sCNOk" Type="int" />
+          <Property Name="sDescripcion" Type="varchar(max)" />
+          <Property Name="IdMayorista" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sMayorista" Type="varchar(max)" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="AnexoTipoFarmacia">
+          <Key>
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sNIF" />
+            <PropertyRef Name="IdTipoVenta" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayorista" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sNIF" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sTipoFarmacia" Type="nvarchar" MaxLength="255" />
+          <Property Name="IdTipoVenta" Type="int" Nullable="false" />
+          <Property Name="IdTipoFarmacia" Type="int" Nullable="false" />
+          <Property Name="sCliente" Type="float" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="AnexoTipoVenta">
+          <Key>
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sCodigo" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayorista" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sCodigo" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="sTipoVenta" Type="varchar(max)" />
+          <Property Name="IdTipoSubVenta" Type="int" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="sNotas" Type="varchar(max)" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MAbono_IVA">
+          <Key>
+            <PropertyRef Name="sIdAbonoIVA" />
+          </Key>
+          <Property Name="sIdAbonoIVA" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="sAbonoIVA" Type="varchar" MaxLength="50" />
+          <Property Name="sIdDivision" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="sIdRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="fIVA" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="iEstado" Type="smallint" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MAgrupadorMayoristaClub">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdRed" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sIdMayorista" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sIdClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sIdRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MClubs">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdRed" />
+          </Key>
+          <Property Name="sIdClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sIdRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sNombreClub" Type="varchar" MaxLength="100" />
+          <Property Name="iEstado" Type="smallint" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MFormasCobro">
+          <Key>
+            <PropertyRef Name="IdFormaCobro" />
+          </Key>
+          <Property Name="IdFormaCobro" Type="int" Nullable="false" />
+          <Property Name="sFormaCobro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="iEstado" Type="smallint" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MMateriales">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="dFechaIni" />
+            <PropertyRef Name="sCodNacional" />
+          </Key>
+          <Property Name="sIdClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sCodSAPMaterial" Type="varchar" MaxLength="18" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="sCodNacional" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="sDescripcionMaterial" Type="varchar" MaxLength="256" />
+          <Property Name="fPrecio" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="iIdTipo" Type="int" />
+          <Property Name="DescuentoAdelantadoClub" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MMayorista">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sMayoristaAgrupador" Type="varchar" MaxLength="255" />
+          <Property Name="IdTipoFarmaciaPorDefecto" Type="int" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MPeriodicidad">
+          <Key>
+            <PropertyRef Name="IdPeriodicidad" />
+          </Key>
+          <Property Name="IdPeriodicidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sPeriodicidad" Type="varchar" MaxLength="32" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MSocios">
+          <Key>
+            <PropertyRef Name="sIdSocio" />
+          </Key>
+          <Property Name="sIdSocio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sCodSAP" Type="varchar" MaxLength="10" />
+          <Property Name="sNIF" Type="varchar" MaxLength="11" />
+          <Property Name="sNombreFcia" Type="varchar" MaxLength="250" />
+          <Property Name="sDireccion" Type="varchar" MaxLength="250" />
+          <Property Name="sCP" Type="varchar" MaxLength="5" />
+          <Property Name="sPoblacion" Type="varchar" MaxLength="100" />
+          <Property Name="iVirtualId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MSubClubs">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdSubClub" />
+          </Key>
+          <Property Name="sIdClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sIdSubClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="sNombreSubClub" Type="varchar" MaxLength="100" />
+          <Property Name="iEstado" Type="smallint" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MTipoDescuento">
+          <Key>
+            <PropertyRef Name="IdTipoDescuento" />
+          </Key>
+          <Property Name="IdTipoDescuento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sTipoDescuento" Type="varchar" MaxLength="32" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MTipoFarmacia">
+          <Key>
+            <PropertyRef Name="IdTipoFarmacia" />
+          </Key>
+          <Property Name="IdTipoFarmacia" Type="int" Nullable="false" />
+          <Property Name="sTipoFarmacia" Type="varchar" MaxLength="64" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MTipoMaterial">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sTipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bCuentaBaseTramo" Type="bit" Nullable="false" />
+          <Property Name="bCuentaBaseCalculo" Type="bit" Nullable="false" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="sIdRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MTipoTramo">
+          <Key>
+            <PropertyRef Name="IdTipoTramo" />
+          </Key>
+          <Property Name="IdTipoTramo" Type="int" Nullable="false" />
+          <Property Name="sTipoTramo" Type="varchar" MaxLength="64" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="MTipoVenta">
+          <Key>
+            <PropertyRef Name="IdTipoSubVenta" />
+          </Key>
+          <Property Name="IdTipoSubVenta" Type="int" Nullable="false" />
+          <Property Name="STipoSubVenta" Type="varchar" MaxLength="64" />
+          <Property Name="IdTipoVenta" Type="int" />
+          <Property Name="sTipoVenta" Type="varchar" MaxLength="64" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="sabana">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+            <PropertyRef Name="sRed" />
+            <PropertyRef Name="IdTipoVenta" />
+            <PropertyRef Name="idClub" />
+            <PropertyRef Name="idSubClub" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sMayoristaAgrupador" Type="varchar" MaxLength="255" />
+          <Property Name="sRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IdPeriodicidad" Type="int" />
+          <Property Name="IdTipoVenta" Type="int" Nullable="false" />
+          <Property Name="idClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="idSubClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IdTipoDescuento" Type="int" />
+          <Property Name="IdTipoDescuento2" Type="int" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="IdTramo" Type="int" />
+          <Property Name="IdTipoTramo" Type="int" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="sabanaCG">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+            <PropertyRef Name="sRed" />
+            <PropertyRef Name="IdTipoVenta" />
+            <PropertyRef Name="idClub" />
+            <PropertyRef Name="idSubClub" />
+            <PropertyRef Name="IdTipoCosteGestion" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="sMayoristaAgrupador" Type="varchar" MaxLength="255" />
+          <Property Name="sRed" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IdPeriodicidad" Type="int" />
+          <Property Name="IdTipoVenta" Type="int" Nullable="false" />
+          <Property Name="idClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="idSubClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IdTipoCosteGestion" Type="int" Nullable="false" />
+          <Property Name="IdTipoVariableCG" Type="int" />
+          <Property Name="IdSabanaCGMat" Type="int" />
+          <Property Name="IdSabanaCGMatCal" Type="int" Nullable="false" />
+          <Property Name="IdTramo" Type="int" />
+          <Property Name="ImpCosteGestion" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="PTCosteGestion" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="dFechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="SabanaCGMateriales">
+          <Key>
+            <PropertyRef Name="IdSabanaCGMat" />
+            <PropertyRef Name="IdTipoMaterial" />
+          </Key>
+          <Property Name="IdSabanaCGMat" Type="int" Nullable="false" />
+          <Property Name="IdTipoMaterial" Type="int" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="SabanaCGTramos">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="fRangoMin" />
+          </Key>
+          <Property Name="IdTramo" Type="int" Nullable="false" />
+          <Property Name="fRangoMin" Type="float" Nullable="false" />
+          <Property Name="fRangoMax" Type="float" />
+          <Property Name="fDescuento" Type="float" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="sabanaGrupos">
+          <Key>
+            <PropertyRef Name="IdClub" />
+            <PropertyRef Name="IdSubClub" />
+            <PropertyRef Name="SCodNacional" />
+            <PropertyRef Name="dfechaIni" />
+          </Key>
+          <Property Name="IdClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IdSubClub" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="SCodNacional" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="sSapAlemania" Type="varchar" MaxLength="255" />
+          <Property Name="sEAN" Type="varchar" MaxLength="255" />
+          <Property Name="fDescuento" Type="float" />
+          <Property Name="IdTramo" Type="int" />
+          <Property Name="IdTipoTramo" Type="int" />
+          <Property Name="dfechaIni" Type="datetime" Nullable="false" />
+          <Property Name="dFechaFin" Type="datetime" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="SabanaTramos">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="fRangoMin" />
+          </Key>
+          <Property Name="IdTramo" Type="int" Nullable="false" />
+          <Property Name="fRangoMin" Type="float" Nullable="false" />
+          <Property Name="fRangoMax" Type="float" />
+          <Property Name="fDescuento" Type="float" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="SabanaTramosTipoMaterial">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="IdTipoMaterial" />
+          </Key>
+          <Property Name="IdTramo" Type="int" Nullable="false" />
+          <Property Name="IdTipoMaterial" Type="float" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="SabanaTramosTipoVenta">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="IdTipoVenta" />
+          </Key>
+          <Property Name="IdTramo" Type="int" Nullable="false" />
+          <Property Name="IdTipoVenta" Type="float" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="datetime" />
+          <Property Name="sUsuarioActualizacion" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <Function Name="usp_AnexoCambioMaterial_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CN_old" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoCambioMaterial_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CN_old" Type="varchar" Mode="In" />
+          <Parameter Name="CN_NEW" Type="varchar" Mode="In" />
+          <Parameter Name="SAP_old" Type="varchar" Mode="In" />
+          <Parameter Name="SAP_new" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaInicio" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaActualizacion" Type="datetime" Mode="In" />
+          <Parameter Name="sUsuarioActualizacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoCambioMaterial_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CN_old" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoCambioMaterial_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CN_old" Type="varchar" Mode="In" />
+          <Parameter Name="CN_new" Type="varchar" Mode="In" />
+          <Parameter Name="SAP_old" Type="varchar" Mode="In" />
+          <Parameter Name="SAP_new" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaInicio" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSocios_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSocios_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+          <Parameter Name="iFormaCobro" Type="int" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSocios_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSocios_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+          <Parameter Name="iFormaCobro" Type="int" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSubClub_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSubClub_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sRed" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sTipoFarmacia" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+          <Parameter Name="sTipoVenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="sZona" Type="int" Mode="In" />
+          <Parameter Name="sCooperativa" Type="nvarchar" Mode="In" />
+          <Parameter Name="sClub" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sSubClub" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoClubSubClub_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sRed" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sTipoFarmacia" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+          <Parameter Name="sTipoVenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="sZona" Type="int" Mode="In" />
+          <Parameter Name="sCooperativa" Type="nvarchar" Mode="In" />
+          <Parameter Name="sClub" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sSubClub" Type="varchar(max)" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sComentarios" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoExpositores_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sCodigoExpositor" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoExpositores_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sCodigoExpositor" Type="bigint" Mode="In" />
+          <Parameter Name="sCNOk" Type="int" Mode="In" />
+          <Parameter Name="sDescripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sMayorista" Type="varchar(max)" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoExpositores_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sCodigoExpositor" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoExpositores_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sCodigoExpositor" Type="bigint" Mode="In" />
+          <Parameter Name="sCNOk" Type="int" Mode="In" />
+          <Parameter Name="sDescripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sMayorista" Type="varchar(max)" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoFarmacia_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sNIF" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoFarmacia_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sNIF" Type="varchar" Mode="In" />
+          <Parameter Name="sTipoFarmacia" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+          <Parameter Name="sCliente" Type="float" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoFarmacia_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sNIF" Type="varchar" Mode="In" />
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoFarmacia_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sNIF" Type="varchar" Mode="In" />
+          <Parameter Name="sTipoFarmacia" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+          <Parameter Name="sCliente" Type="float" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoVenta_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sCodigo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoVenta_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sCodigo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sTipoVenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sNotas" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoVenta_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sCodigo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_AnexoTipoVenta_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdMayorista" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sCodigo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sTipoVenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sNotas" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_MAbono_IVA_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdAbonoIVA" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MAbono_IVA_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdAbonoIVA" Type="varchar" Mode="In" />
+          <Parameter Name="sAbonoIVA" Type="varchar" Mode="In" />
+          <Parameter Name="sIdDivision" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="fIVA" Type="decimal" Mode="In" />
+          <Parameter Name="iEstado" Type="smallint" Mode="In" />
+          <Parameter Name="dFechaActualizacion" Type="datetime" Mode="In" />
+          <Parameter Name="sUsuarioActualizacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MAbono_IVA_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdAbonoIVA" Type="varchar" Mode="In" />
+          <Parameter Name="sIdDivision" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MAbono_IVA_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdAbonoIVA" Type="varchar" Mode="In" />
+          <Parameter Name="sAbonoIVA" Type="varchar" Mode="In" />
+          <Parameter Name="sIdDivision" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="fIVA" Type="decimal" Mode="In" />
+          <Parameter Name="iEstado" Type="smallint" Mode="In" />
+          <Parameter Name="dFechaActualizacion" Type="datetime" Mode="In" />
+          <Parameter Name="sUsuarioActualizacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MClubs_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+          <Parameter Name="sNombreClub" Type="varchar" Mode="In" />
+          <Parameter Name="iEstado" Type="smallint" Mode="In" />
+          <Parameter Name="dFechaActualizacion" Type="datetime" Mode="In" />
+          <Parameter Name="sUsuarioActualizacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MMateriales_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sCodSAPMaterial" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MMateriales_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sCodSAPMaterial" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sCodNacional" Type="varchar" Mode="In" />
+          <Parameter Name="fPrecio" Type="decimal" Mode="In" />
+          <Parameter Name="iIdTipo" Type="int" Mode="In" />
+          <Parameter Name="dFechaActualizacion" Type="datetime" Mode="In" />
+          <Parameter Name="sUsuarioActualizacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MMateriales_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sCodSAPMaterial" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MMateriales_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sCodSAPMaterial" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sCodNacional" Type="varchar" Mode="In" />
+          <Parameter Name="fPrecio" Type="decimal" Mode="In" />
+          <Parameter Name="iIdTipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MSocios_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MSocios_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+          <Parameter Name="sCodSAP" Type="varchar" Mode="In" />
+          <Parameter Name="sNIF" Type="varchar" Mode="In" />
+          <Parameter Name="sNombreFcia" Type="varchar" Mode="In" />
+          <Parameter Name="sDireccion" Type="varchar" Mode="In" />
+          <Parameter Name="sCP" Type="varchar" Mode="In" />
+          <Parameter Name="sPoblacion" Type="varchar" Mode="In" />
+          <Parameter Name="dFechaActualizacion" Type="datetime" Mode="In" />
+          <Parameter Name="sUsuarioActualizacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MSocios_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MSocios_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdSocio" Type="varchar" Mode="In" />
+          <Parameter Name="sCodSAP" Type="varchar" Mode="In" />
+          <Parameter Name="sNIF" Type="varchar" Mode="In" />
+          <Parameter Name="sNombreFcia" Type="varchar" Mode="In" />
+          <Parameter Name="sDireccion" Type="varchar" Mode="In" />
+          <Parameter Name="sCP" Type="varchar" Mode="In" />
+          <Parameter Name="sPoblacion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MSubClubs_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSubClub" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MSubClubs_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSubClub" Type="varchar" Mode="In" />
+          <Parameter Name="sNombreSubClub" Type="varchar" Mode="In" />
+          <Parameter Name="iEstado" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="usp_MSubClubs_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSubClub" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MSubClubs_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sIdClub" Type="varchar" Mode="In" />
+          <Parameter Name="sIdSubClub" Type="varchar" Mode="In" />
+          <Parameter Name="sNombreSubClub" Type="varchar" Mode="In" />
+          <Parameter Name="iEstado" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoCosteGestion_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoCosteGestion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoCosteGestion_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoCosteGestion" Type="int" Mode="In" />
+          <Parameter Name="sTipoCosteGestion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoCosteGestion_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoCosteGestion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoCosteGestion_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoCosteGestion" Type="int" Mode="In" />
+          <Parameter Name="sTipoCosteGestion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoDescuento_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoDescuento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoDescuento_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sTipoDescuento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoDescuento_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoDescuento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoDescuento_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoDescuento" Type="int" Mode="In" />
+          <Parameter Name="sTipoDescuento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoFarmacia_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoFarmacia_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+          <Parameter Name="sTipoFarmacia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoFarmacia_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoFarmacia_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoFarmacia" Type="int" Mode="In" />
+          <Parameter Name="sTipoFarmacia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoMaterial_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoMaterial_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sTipo" Type="varchar" Mode="In" />
+          <Parameter Name="bCuentaBaseTramo" Type="bit" Mode="In" />
+          <Parameter Name="bCuentaBaseCalculo" Type="bit" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoMaterial_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoMaterial_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipo" Type="int" Mode="In" />
+          <Parameter Name="sTipo" Type="varchar" Mode="In" />
+          <Parameter Name="bCuentaBaseTramo" Type="bit" Mode="In" />
+          <Parameter Name="bCuentaBaseCalculo" Type="bit" Mode="In" />
+          <Parameter Name="dFechaIni" Type="datetime" Mode="In" />
+          <Parameter Name="dFechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="sIdRed" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoTramo_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoTramo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoTramo_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoTramo" Type="int" Mode="In" />
+          <Parameter Name="sTipoTramo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoTramo_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoTramo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoTramo_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoTramo" Type="int" Mode="In" />
+          <Parameter Name="sTipoTramo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MtipoVariableCG_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoVariableCG" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MtipoVariableCG_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoVariableCG" Type="int" Mode="In" />
+          <Parameter Name="sTipoVariableCG" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MtipoVariableCG_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoVariableCG" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MtipoVariableCG_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoVariableCG" Type="int" Mode="In" />
+          <Parameter Name="sTipoVariableCG" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoVenta_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoVenta_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="STipoSubVenta" Type="varchar" Mode="In" />
+          <Parameter Name="IdTipoVenta" Type="int" Mode="In" />
+          <Parameter Name="sTipoVenta" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoVenta_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="IdTipoVenta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_MTipoVenta_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoSubVenta" Type="int" Mode="In" />
+          <Parameter Name="STipoSubVenta" Type="varchar" Mode="In" />
+          <Parameter Name="IdTipoVenta" Type="int" Mode="In" />
+          <Parameter Name="sTipoVenta" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_VW_CLI_LIQ_ext_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KUNNR" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_VW_MAT_LIQ_ext_Read" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MATE_MATERIAL_ID" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="ValidarDatos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CLUBS_AX_TESTModelStoreContainer">
+          <EntitySet Name="AnexoCambioMaterial" EntityType="Self.AnexoCambioMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnexoClubSocios" EntityType="Self.AnexoClubSocios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnexoClubSubClub" EntityType="Self.AnexoClubSubClub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnexoExpositores" EntityType="Self.AnexoExpositores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnexoTipoFarmacia" EntityType="Self.AnexoTipoFarmacia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnexoTipoVenta" EntityType="Self.AnexoTipoVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAbono_IVA" EntityType="Self.MAbono_IVA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAgrupadorMayoristaClub" EntityType="Self.MAgrupadorMayoristaClub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MClubs" EntityType="Self.MClubs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MFormasCobro" EntityType="Self.MFormasCobro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MMateriales" EntityType="Self.MMateriales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MMayorista" EntityType="Self.MMayorista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MPeriodicidad" EntityType="Self.MPeriodicidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MSocios" EntityType="Self.MSocios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MSubClubs" EntityType="Self.MSubClubs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MTipoDescuento" EntityType="Self.MTipoDescuento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MTipoFarmacia" EntityType="Self.MTipoFarmacia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MTipoMaterial" EntityType="Self.MTipoMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MTipoTramo" EntityType="Self.MTipoTramo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MTipoVenta" EntityType="Self.MTipoVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sabana" EntityType="Self.sabana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sabanaCG" EntityType="Self.sabanaCG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SabanaCGMateriales" EntityType="Self.SabanaCGMateriales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SabanaCGTramos" EntityType="Self.SabanaCGTramos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sabanaGrupos" EntityType="Self.sabanaGrupos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SabanaTramos" EntityType="Self.SabanaTramos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SabanaTramosTipoMaterial" EntityType="Self.SabanaTramosTipoMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SabanaTramosTipoVenta" EntityType="Self.SabanaTramosTipoVenta" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CLUBS_AX_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MSocios">
+          <Key>
+            <PropertyRef Name="sIdSocio" />
+          </Key>
+          <Property Name="sIdSocio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sCodSAP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sNIF" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="sNombreFcia" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="sDireccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="sCP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="sPoblacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="iVirtualId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CLUBS_AX_TESTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MSocios" EntityType="Self.MSocios" />
+          <FunctionImport Name="usp_AnexoCambioMaterial_Delete">
+          <Parameter Name="CN_old" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoCambioMaterial_Insert">
+            <Parameter Name="CN_old" Mode="In" Type="String" />
+            <Parameter Name="CN_NEW" Mode="In" Type="String" />
+            <Parameter Name="SAP_old" Mode="In" Type="String" />
+            <Parameter Name="SAP_new" Mode="In" Type="String" />
+            <Parameter Name="dFechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoCambioMaterial_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_AnexoCambioMaterial_Read_Result)">
+          <Parameter Name="CN_old" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoCambioMaterial_Update">
+            <Parameter Name="CN_old" Mode="In" Type="String" />
+            <Parameter Name="CN_new" Mode="In" Type="String" />
+            <Parameter Name="SAP_old" Mode="In" Type="String" />
+            <Parameter Name="SAP_new" Mode="In" Type="String" />
+            <Parameter Name="dFechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSocios_Delete">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="sIdSocio" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSocios_Insert">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="sIdSocio" Mode="In" Type="String" />
+            <Parameter Name="iFormaCobro" Mode="In" Type="Int32" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSocios_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_AnexoClubSocios_Read_Result)">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="sIdSocio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSocios_Update">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="sIdSocio" Mode="In" Type="String" />
+            <Parameter Name="iFormaCobro" Mode="In" Type="Int32" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSubClub_Delete">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSubClub_Insert">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sRed" Mode="In" Type="String" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="sZona" Mode="In" Type="Int32" />
+            <Parameter Name="sCooperativa" Mode="In" Type="String" />
+            <Parameter Name="sClub" Mode="In" Type="String" />
+            <Parameter Name="sSubClub" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sComentarios" Mode="In" Type="String" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSubClub_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_AnexoClubSubClub_Read_Result)">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sRed" Mode="In" Type="String" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="sZona" Mode="In" Type="Int32" />
+            <Parameter Name="sCooperativa" Mode="In" Type="String" />
+            <Parameter Name="sClub" Mode="In" Type="String" />
+            <Parameter Name="sSubClub" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoClubSubClub_Update">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sRed" Mode="In" Type="String" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="sZona" Mode="In" Type="Int32" />
+            <Parameter Name="sCooperativa" Mode="In" Type="String" />
+            <Parameter Name="sClub" Mode="In" Type="String" />
+            <Parameter Name="sSubClub" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sComentarios" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoExpositores_Delete">
+          <Parameter Name="sCodigoExpositor" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoExpositores_Insert">
+            <Parameter Name="sCodigoExpositor" Mode="In" Type="Int64" />
+            <Parameter Name="sCNOk" Mode="In" Type="Int32" />
+            <Parameter Name="sDescripcion" Mode="In" Type="String" />
+            <Parameter Name="sMayorista" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoExpositores_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_AnexoExpositores_Read_Result)">
+          <Parameter Name="sCodigoExpositor" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoExpositores_Update">
+            <Parameter Name="sCodigoExpositor" Mode="In" Type="Int64" />
+            <Parameter Name="sCNOk" Mode="In" Type="Int32" />
+            <Parameter Name="sDescripcion" Mode="In" Type="String" />
+            <Parameter Name="sMayorista" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoFarmacia_Delete">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sNIF" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoFarmacia_Insert">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sNIF" Mode="In" Type="String" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sCliente" Mode="In" Type="Double" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoFarmacia_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_AnexoTipoFarmacia_Read_Result)">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sNIF" Mode="In" Type="String" />
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoFarmacia_Update">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sNIF" Mode="In" Type="String" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sCliente" Mode="In" Type="Double" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoVenta_Delete">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sCodigo" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoVenta_Insert">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sCodigo" Mode="In" Type="String" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sNotas" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoVenta_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_AnexoTipoVenta_Read_Result)">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sCodigo" Mode="In" Type="String" />
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AnexoTipoVenta_Update">
+            <Parameter Name="sIdMayorista" Mode="In" Type="String" />
+            <Parameter Name="sCodigo" Mode="In" Type="String" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sNotas" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSubClubs_Delete">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdSubClub" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSubClubs_Insert">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdSubClub" Mode="In" Type="String" />
+            <Parameter Name="sNombreSubClub" Mode="In" Type="String" />
+            <Parameter Name="iEstado" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSubClubs_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MSubClubs_Read_Result)">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdSubClub" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSubClubs_Update">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdSubClub" Mode="In" Type="String" />
+            <Parameter Name="sNombreSubClub" Mode="In" Type="String" />
+            <Parameter Name="iEstado" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoCosteGestion_Delete">
+          <Parameter Name="IdTipoCosteGestion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoCosteGestion_Insert">
+            <Parameter Name="IdTipoCosteGestion" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoCosteGestion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoCosteGestion_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MTipoCosteGestion_Read_Result)">
+          <Parameter Name="IdTipoCosteGestion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoCosteGestion_Update">
+            <Parameter Name="IdTipoCosteGestion" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoCosteGestion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoDescuento_Delete">
+          <Parameter Name="IdTipoDescuento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoDescuento_Insert">
+          <Parameter Name="sTipoDescuento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoDescuento_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MTipoDescuento_Read_Result)">
+          <Parameter Name="IdTipoDescuento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoDescuento_Update">
+            <Parameter Name="IdTipoDescuento" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoDescuento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoFarmacia_Delete">
+          <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoFarmacia_Insert">
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoFarmacia_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MTipoFarmacia_Read_Result)">
+          <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoFarmacia_Update">
+            <Parameter Name="IdTipoFarmacia" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoFarmacia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoMaterial_Delete">
+          <Parameter Name="IdTipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoMaterial_Insert">
+            <Parameter Name="sTipo" Mode="In" Type="String" />
+            <Parameter Name="bCuentaBaseTramo" Mode="In" Type="Boolean" />
+            <Parameter Name="bCuentaBaseCalculo" Mode="In" Type="Boolean" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoMaterial_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MTipoMaterial_Read_Result)">
+          <Parameter Name="IdTipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoMaterial_Update">
+            <Parameter Name="IdTipo" Mode="In" Type="Int32" />
+            <Parameter Name="sTipo" Mode="In" Type="String" />
+            <Parameter Name="bCuentaBaseTramo" Mode="In" Type="Boolean" />
+            <Parameter Name="bCuentaBaseCalculo" Mode="In" Type="Boolean" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoTramo_Delete">
+          <Parameter Name="IdTipoTramo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoTramo_Insert">
+            <Parameter Name="IdTipoTramo" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoTramo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoTramo_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MTipoTramo_Read_Result)">
+          <Parameter Name="IdTipoTramo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoTramo_Update">
+            <Parameter Name="IdTipoTramo" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoTramo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MtipoVariableCG_Delete">
+          <Parameter Name="IdTipoVariableCG" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MtipoVariableCG_Insert">
+            <Parameter Name="IdTipoVariableCG" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVariableCG" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MtipoVariableCG_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MtipoVariableCG_Read_Result)">
+          <Parameter Name="IdTipoVariableCG" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MtipoVariableCG_Update">
+            <Parameter Name="IdTipoVariableCG" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVariableCG" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoVenta_Delete">
+          <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoVenta_Insert">
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="STipoSubVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoVenta" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoVenta_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MTipoVenta_Read_Result)">
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="IdTipoVenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MTipoVenta_Update">
+            <Parameter Name="IdTipoSubVenta" Mode="In" Type="Int32" />
+            <Parameter Name="STipoSubVenta" Mode="In" Type="String" />
+            <Parameter Name="IdTipoVenta" Mode="In" Type="Int32" />
+            <Parameter Name="sTipoVenta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ValidarDatos" />
+          <FunctionImport Name="usp_MSocios_Delete">
+          <Parameter Name="sIdSocio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSocios_Insert">
+            <Parameter Name="sIdSocio" Mode="In" Type="String" />
+            <Parameter Name="sCodSAP" Mode="In" Type="String" />
+            <Parameter Name="sNIF" Mode="In" Type="String" />
+            <Parameter Name="sNombreFcia" Mode="In" Type="String" />
+            <Parameter Name="sDireccion" Mode="In" Type="String" />
+            <Parameter Name="sCP" Mode="In" Type="String" />
+            <Parameter Name="sPoblacion" Mode="In" Type="String" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSocios_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MSocios_Read_Result)">
+          <Parameter Name="sIdSocio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MSocios_Update">
+            <Parameter Name="sIdSocio" Mode="In" Type="String" />
+            <Parameter Name="sCodSAP" Mode="In" Type="String" />
+            <Parameter Name="sNIF" Mode="In" Type="String" />
+            <Parameter Name="sNombreFcia" Mode="In" Type="String" />
+            <Parameter Name="sDireccion" Mode="In" Type="String" />
+            <Parameter Name="sCP" Mode="In" Type="String" />
+            <Parameter Name="sPoblacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MMateriales_Delete">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sCodSAPMaterial" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MMateriales_Insert">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sCodSAPMaterial" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sCodNacional" Mode="In" Type="String" />
+            <Parameter Name="fPrecio" Mode="In" Type="Decimal" />
+            <Parameter Name="iIdTipo" Mode="In" Type="Int32" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MMateriales_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MMateriales_Read_Result)">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sCodSAPMaterial" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MMateriales_Update">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sCodSAPMaterial" Mode="In" Type="String" />
+            <Parameter Name="dFechaIni" Mode="In" Type="DateTime" />
+            <Parameter Name="dFechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="sCodNacional" Mode="In" Type="String" />
+            <Parameter Name="fPrecio" Mode="In" Type="Decimal" />
+            <Parameter Name="iIdTipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="MAgrupadorMayoristaClubs" EntityType="CLUBS_AX_TESTModel.MAgrupadorMayoristaClub" />
+          <EntitySet Name="MClubs" EntityType="CLUBS_AX_TESTModel.MClub" />
+          <EntitySet Name="MMayoristas" EntityType="CLUBS_AX_TESTModel.MMayorista" />
+          <EntitySet Name="MSubClubs" EntityType="CLUBS_AX_TESTModel.MSubClub" />
+          <EntitySet Name="MMateriales1" EntityType="CLUBS_AX_TESTModel.MMateriales" />
+          <EntitySet Name="AnexoCambioMaterials" EntityType="CLUBS_AX_TESTModel.AnexoCambioMaterial" />
+          <EntitySet Name="AnexoClubSubClubs" EntityType="CLUBS_AX_TESTModel.AnexoClubSubClub" />
+          <EntitySet Name="AnexoExpositores1" EntityType="CLUBS_AX_TESTModel.AnexoExpositores" />
+          <EntitySet Name="AnexoTipoFarmacias" EntityType="CLUBS_AX_TESTModel.AnexoTipoFarmacia" />
+          <EntitySet Name="AnexoTipoVentas" EntityType="CLUBS_AX_TESTModel.AnexoTipoVenta" />
+          <EntitySet Name="AnexoClubSocios1" EntityType="CLUBS_AX_TESTModel.AnexoClubSocios" />
+          <EntitySet Name="MAbono_IVA" EntityType="CLUBS_AX_TESTModel.MAbono_IVA" />
+          <EntitySet Name="MFormasCobroes" EntityType="CLUBS_AX_TESTModel.MFormasCobro" />
+          <EntitySet Name="MPeriodicidads" EntityType="CLUBS_AX_TESTModel.MPeriodicidad" />
+          <EntitySet Name="MTipoDescuentoes" EntityType="CLUBS_AX_TESTModel.MTipoDescuento" />
+          <EntitySet Name="MTipoFarmacias" EntityType="CLUBS_AX_TESTModel.MTipoFarmacia" />
+          <EntitySet Name="MTipoMaterials" EntityType="CLUBS_AX_TESTModel.MTipoMaterial" />
+          <EntitySet Name="MTipoTramoes" EntityType="CLUBS_AX_TESTModel.MTipoTramo" />
+          <EntitySet Name="MTipoVentas" EntityType="CLUBS_AX_TESTModel.MTipoVenta" />
+          <FunctionImport Name="usp_MClubs_Insert">
+            <Parameter Name="sIdClub" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="sNombreClub" Mode="In" Type="String" />
+            <Parameter Name="iEstado" Mode="In" Type="Int16" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MAbono_IVA_Delete">
+          <Parameter Name="sIdAbonoIVA" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MAbono_IVA_Insert">
+            <Parameter Name="sIdAbonoIVA" Mode="In" Type="String" />
+            <Parameter Name="sAbonoIVA" Mode="In" Type="String" />
+            <Parameter Name="sIdDivision" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="fIVA" Mode="In" Type="Decimal" />
+            <Parameter Name="iEstado" Mode="In" Type="Int16" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MAbono_IVA_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_MAbono_IVA_Read_Result)">
+            <Parameter Name="sIdAbonoIVA" Mode="In" Type="String" />
+            <Parameter Name="sIdDivision" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_MAbono_IVA_Update">
+            <Parameter Name="sIdAbonoIVA" Mode="In" Type="String" />
+            <Parameter Name="sAbonoIVA" Mode="In" Type="String" />
+            <Parameter Name="sIdDivision" Mode="In" Type="String" />
+            <Parameter Name="sIdRed" Mode="In" Type="String" />
+            <Parameter Name="fIVA" Mode="In" Type="Decimal" />
+            <Parameter Name="iEstado" Mode="In" Type="Int16" />
+            <Parameter Name="dFechaActualizacion" Mode="In" Type="DateTime" />
+            <Parameter Name="sUsuarioActualizacion" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="sabanas" EntityType="CLUBS_AX_TESTModel.sabana" />
+          <EntitySet Name="sabanaCGs" EntityType="CLUBS_AX_TESTModel.sabanaCG" />
+          <EntitySet Name="SabanaCGMateriales" EntityType="CLUBS_AX_TESTModel.SabanaCGMateriale" />
+          <EntitySet Name="SabanaCGTramos" EntityType="CLUBS_AX_TESTModel.SabanaCGTramo" />
+          <EntitySet Name="sabanaGrupos" EntityType="CLUBS_AX_TESTModel.sabanaGrupos" />
+          <EntitySet Name="SabanaTramos" EntityType="CLUBS_AX_TESTModel.SabanaTramo" />
+          <EntitySet Name="SabanaTramosTipoMaterials" EntityType="CLUBS_AX_TESTModel.SabanaTramosTipoMaterial" />
+          <EntitySet Name="SabanaTramosTipoVentas" EntityType="CLUBS_AX_TESTModel.SabanaTramosTipoVenta" />
+          <FunctionImport Name="usp_VW_CLI_LIQ_ext_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_VW_CLI_LIQ_ext_Read_Result)">
+            <Parameter Name="KUNNR" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_VW_MAT_LIQ_ext_Read" ReturnType="Collection(CLUBS_AX_TESTModel.usp_VW_MAT_LIQ_ext_Read_Result)">
+            <Parameter Name="MATE_MATERIAL_ID" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_AnexoCambioMaterial_Read_Result">
+          <Property Type="String" Name="CN_old" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="CN_NEW" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="SAP_old" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="SAP_new" Nullable="true" MaxLength="8" />
+          <Property Type="DateTime" Name="dFechaInicio" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_AnexoClubSocios_Read_Result">
+          <Property Type="String" Name="sIdClub" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="sIdRed" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="sIdSocio" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="iFormaCobro" Nullable="true" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_AnexoClubSubClub_Read_Result">
+          <Property Type="String" Name="sIdMayorista" Nullable="true" />
+          <Property Type="String" Name="sRed" Nullable="true" />
+          <Property Type="String" Name="sTipoFarmacia" Nullable="true" />
+          <Property Type="Int32" Name="IdTipoFarmacia" Nullable="true" />
+          <Property Type="String" Name="sTipoVenta" Nullable="true" />
+          <Property Type="Int32" Name="IdTipoSubVenta" Nullable="true" />
+          <Property Type="Int32" Name="sZona" Nullable="true" />
+          <Property Type="String" Name="sCooperativa" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="sClub" Nullable="true" />
+          <Property Type="String" Name="sSubClub" Nullable="true" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+          <Property Type="String" Name="sComentarios" Nullable="true" MaxLength="512" />
+        </ComplexType>
+        <ComplexType Name="usp_AnexoExpositores_Read_Result">
+          <Property Type="Int64" Name="sCodigoExpositor" Nullable="true" />
+          <Property Type="Int32" Name="sCNOk" Nullable="true" />
+          <Property Type="String" Name="sDescripcion" Nullable="true" />
+          <Property Type="String" Name="sMayorista" Nullable="true" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_AnexoTipoFarmacia_Read_Result">
+          <Property Type="String" Name="sIdMayorista" Nullable="true" />
+          <Property Type="String" Name="sNIF" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="sTipoFarmacia" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="IdTipoFarmacia" Nullable="true" />
+          <Property Type="Double" Name="sCliente" Nullable="true" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_AnexoTipoVenta_Read_Result">
+          <Property Type="String" Name="sIdMayorista" Nullable="true" />
+          <Property Type="String" Name="sCodigo" Nullable="true" />
+          <Property Type="String" Name="sTipoVenta" Nullable="true" />
+          <Property Type="Int32" Name="IdTipoSubVenta" Nullable="true" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+          <Property Type="String" Name="sNotas" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_MSubClubs_Read_Result">
+          <Property Type="String" Name="sIdClub" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="sIdSubClub" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="sNombreSubClub" Nullable="true" MaxLength="100" />
+          <Property Type="Int16" Name="iEstado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_MTipoCosteGestion_Read_Result">
+          <Property Type="Int32" Name="IdTipoCosteGestion" Nullable="false" />
+          <Property Type="String" Name="sTipoCosteGestion" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="usp_MTipoDescuento_Read_Result">
+          <Property Type="Int32" Name="IdTipoDescuento" Nullable="false" />
+          <Property Type="String" Name="sTipoDescuento" Nullable="true" MaxLength="32" />
+        </ComplexType>
+        <ComplexType Name="usp_MTipoFarmacia_Read_Result">
+          <Property Type="Int32" Name="IdTipoFarmacia" Nullable="true" />
+          <Property Type="String" Name="sTipoFarmacia" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="usp_MTipoMaterial_Read_Result">
+          <Property Type="Int32" Name="IdTipo" Nullable="false" />
+          <Property Type="String" Name="sTipo" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="bCuentaBaseTramo" Nullable="false" />
+          <Property Type="Boolean" Name="bCuentaBaseCalculo" Nullable="false" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+          <Property Type="String" Name="sIdRed" Nullable="false" MaxLength="4" />
+        </ComplexType>
+        <ComplexType Name="usp_MTipoTramo_Read_Result">
+          <Property Type="Int32" Name="IdTipoTramo" Nullable="true" />
+          <Property Type="String" Name="sTipoTramo" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="usp_MtipoVariableCG_Read_Result">
+          <Property Type="Int32" Name="IdTipoVariableCG" Nullable="false" />
+          <Property Type="String" Name="sTipoVariableCG" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="usp_MTipoVenta_Read_Result">
+          <Property Type="Int32" Name="IdTipoSubVenta" Nullable="true" />
+          <Property Type="String" Name="STipoSubVenta" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="IdTipoVenta" Nullable="true" />
+          <Property Type="String" Name="sTipoVenta" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="usp_MSocios_Read_Result">
+          <Property Type="String" Name="sIdSocio" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="sCodSAP" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="sNIF" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="sNombreFcia" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="sDireccion" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="sCP" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="sPoblacion" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="iVirtualId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_MMateriales_Read_Result">
+          <Property Type="String" Name="sIdClub" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="sCodSAPMaterial" Nullable="true" MaxLength="18" />
+          <Property Type="DateTime" Name="dFechaIni" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dFechaFin" Nullable="true" Precision="23" />
+          <Property Type="String" Name="sCodNacional" Nullable="true" MaxLength="6" />
+          <Property Type="Decimal" Name="fPrecio" Nullable="true" Precision="10" Scale="3" />
+          <Property Type="Int32" Name="iIdTipo" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="MAgrupadorMayoristaClub">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdRed" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sIdMayorista" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sIdClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sIdRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MClub">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdRed" />
+          </Key>
+          <Property Name="sIdClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sIdRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sNombreClub" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="iEstado" Type="Int16" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MMayorista">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sMayoristaAgrupador" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoFarmaciaPorDefecto" Type="Int32" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MSubClub">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdSubClub" />
+          </Key>
+          <Property Name="sIdClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sIdSubClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sNombreSubClub" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="iEstado" Type="Int16" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MMateriales">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="dFechaIni" />
+            <PropertyRef Name="sCodNacional" />
+          </Key>
+          <Property Name="sIdClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sCodSAPMaterial" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="sCodNacional" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="fPrecio" Type="Decimal" Precision="10" Scale="3" />
+          <Property Name="iIdTipo" Type="Int32" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoAdelantadoClub" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="sDescripcionMaterial" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AnexoCambioMaterial">
+          <Key>
+            <PropertyRef Name="CN_old" />
+            <PropertyRef Name="dFechaInicio" />
+          </Key>
+          <Property Name="CN_old" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="CN_NEW" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="SAP_old" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="SAP_new" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AnexoClubSubClub">
+          <Key>
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sRed" />
+            <PropertyRef Name="IdTipoFarmacia" />
+            <PropertyRef Name="IdTipoSubVenta" />
+            <PropertyRef Name="sZona" />
+            <PropertyRef Name="sCooperativa" />
+            <PropertyRef Name="sClub" />
+            <PropertyRef Name="sSubClub" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayorista" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sTipoFarmacia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipoFarmacia" Type="Int32" Nullable="false" />
+          <Property Name="sTipoVenta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoSubVenta" Type="Int32" Nullable="false" />
+          <Property Name="sZona" Type="Int32" Nullable="false" />
+          <Property Name="sCooperativa" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sSubClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="sComentarios" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AnexoExpositores">
+          <Key>
+            <PropertyRef Name="sCodigoExpositor" />
+            <PropertyRef Name="IdMayorista" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sCodigoExpositor" Type="Int64" Nullable="false" />
+          <Property Name="sCNOk" Type="Int32" />
+          <Property Name="sDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdMayorista" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sMayorista" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AnexoTipoFarmacia">
+          <Key>
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sNIF" />
+            <PropertyRef Name="dFechaIni" />
+            <PropertyRef Name="IdTipoVenta" />
+          </Key>
+          <Property Name="sIdMayorista" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sNIF" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sTipoFarmacia" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IdTipoFarmacia" Type="Int32" Nullable="false" />
+          <Property Name="sCliente" Type="Double" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoVenta" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnexoTipoVenta">
+          <Key>
+            <PropertyRef Name="sIdMayorista" />
+            <PropertyRef Name="sCodigo" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayorista" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sCodigo" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="sTipoVenta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoSubVenta" Type="Int32" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="sNotas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AnexoClubSocios">
+          <Key>
+            <PropertyRef Name="sIdClub" />
+            <PropertyRef Name="sIdRed" />
+            <PropertyRef Name="sIdSocio" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sIdRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="sIdSocio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="iFormaCobro" Type="Int32" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MAbono_IVA">
+          <Key>
+            <PropertyRef Name="sIdAbonoIVA" />
+          </Key>
+          <Property Name="sIdAbonoIVA" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="sAbonoIVA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sIdDivision" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="sIdRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="fIVA" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="iEstado" Type="Int16" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MFormasCobro">
+          <Key>
+            <PropertyRef Name="IdFormaCobro" />
+          </Key>
+          <Property Name="IdFormaCobro" Type="Int32" Nullable="false" />
+          <Property Name="sFormaCobro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="iEstado" Type="Int16" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MPeriodicidad">
+          <Key>
+            <PropertyRef Name="IdPeriodicidad" />
+          </Key>
+          <Property Name="IdPeriodicidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sPeriodicidad" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MTipoDescuento">
+          <Key>
+            <PropertyRef Name="IdTipoDescuento" />
+          </Key>
+          <Property Name="IdTipoDescuento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sTipoDescuento" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MTipoFarmacia">
+          <Key>
+            <PropertyRef Name="IdTipoFarmacia" />
+          </Key>
+          <Property Name="IdTipoFarmacia" Type="Int32" Nullable="false" />
+          <Property Name="sTipoFarmacia" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MTipoMaterial">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="IdTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sTipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bCuentaBaseTramo" Type="Boolean" Nullable="false" />
+          <Property Name="bCuentaBaseCalculo" Type="Boolean" Nullable="false" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="sIdRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MTipoTramo">
+          <Key>
+            <PropertyRef Name="IdTipoTramo" />
+          </Key>
+          <Property Name="IdTipoTramo" Type="Int32" Nullable="false" />
+          <Property Name="sTipoTramo" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MTipoVenta">
+          <Key>
+            <PropertyRef Name="IdTipoSubVenta" />
+          </Key>
+          <Property Name="IdTipoSubVenta" Type="Int32" Nullable="false" />
+          <Property Name="STipoSubVenta" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoVenta" Type="Int32" />
+          <Property Name="sTipoVenta" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="usp_MAbono_IVA_Read_Result">
+          <Property Type="String" Name="sIdAbonoIVA" Nullable="false" MaxLength="18" />
+          <Property Type="String" Name="sAbonoIVA" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sIdDivision" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="sIdRed" Nullable="false" MaxLength="4" />
+          <Property Type="Decimal" Name="fIVA" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int16" Name="iEstado" Nullable="false" />
+          <Property Type="DateTime" Name="dFechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="sUsuarioActualizacion" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <EntityType Name="sabana">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+            <PropertyRef Name="sRed" />
+            <PropertyRef Name="IdTipoVenta" />
+            <PropertyRef Name="idClub" />
+            <PropertyRef Name="idSubClub" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sMayoristaAgrupador" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IdPeriodicidad" Type="Int32" />
+          <Property Name="IdTipoVenta" Type="Int32" Nullable="false" />
+          <Property Name="idClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="idSubClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoDescuento" Type="Int32" />
+          <Property Name="IdTipoDescuento2" Type="Int32" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="IdTramo" Type="Int32" />
+          <Property Name="IdTipoTramo" Type="Int32" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sabanaCG">
+          <Key>
+            <PropertyRef Name="sIdMayoristaAgrupador" />
+            <PropertyRef Name="sRed" />
+            <PropertyRef Name="IdTipoVenta" />
+            <PropertyRef Name="idClub" />
+            <PropertyRef Name="idSubClub" />
+            <PropertyRef Name="IdTipoCosteGestion" />
+            <PropertyRef Name="dFechaIni" />
+          </Key>
+          <Property Name="sIdMayoristaAgrupador" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sMayoristaAgrupador" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sRed" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IdPeriodicidad" Type="Int32" />
+          <Property Name="IdTipoVenta" Type="Int32" Nullable="false" />
+          <Property Name="idClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="idSubClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoCosteGestion" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoVariableCG" Type="Int32" />
+          <Property Name="IdSabanaCGMat" Type="Int32" />
+          <Property Name="IdTramo" Type="Int32" />
+          <Property Name="ImpCosteGestion" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="PTCosteGestion" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="dFechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="IdSabanaCGMatCal" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SabanaCGMateriale">
+          <Key>
+            <PropertyRef Name="IdSabanaCGMat" />
+            <PropertyRef Name="IdTipoMaterial" />
+          </Key>
+          <Property Name="IdSabanaCGMat" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoMaterial" Type="Int32" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SabanaCGTramo">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="fRangoMin" />
+          </Key>
+          <Property Name="IdTramo" Type="Int32" Nullable="false" />
+          <Property Name="fRangoMin" Type="Double" Nullable="false" />
+          <Property Name="fRangoMax" Type="Double" />
+          <Property Name="fDescuento" Type="Double" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sabanaGrupos">
+          <Key>
+            <PropertyRef Name="IdClub" />
+            <PropertyRef Name="IdSubClub" />
+            <PropertyRef Name="SCodNacional" />
+            <PropertyRef Name="dfechaIni" />
+          </Key>
+          <Property Name="IdClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IdSubClub" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SCodNacional" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="sSapAlemania" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sEAN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fDescuento" Type="Double" />
+          <Property Name="IdTramo" Type="Int32" />
+          <Property Name="IdTipoTramo" Type="Int32" />
+          <Property Name="dfechaIni" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SabanaTramo">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="fRangoMin" />
+          </Key>
+          <Property Name="IdTramo" Type="Int32" Nullable="false" />
+          <Property Name="fRangoMin" Type="Double" Nullable="false" />
+          <Property Name="fRangoMax" Type="Double" />
+          <Property Name="fDescuento" Type="Double" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SabanaTramosTipoMaterial">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="IdTipoMaterial" />
+          </Key>
+          <Property Name="IdTramo" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoMaterial" Type="Double" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SabanaTramosTipoVenta">
+          <Key>
+            <PropertyRef Name="IdTramo" />
+            <PropertyRef Name="IdTipoVenta" />
+          </Key>
+          <Property Name="IdTramo" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoVenta" Type="Double" Nullable="false" />
+          <Property Name="dFechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="sUsuarioActualizacion" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="usp_VW_CLI_LIQ_ext_Read_Result">
+          <Property Type="String" Name="KUNNR" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NAME" Nullable="true" MaxLength="71" />
+          <Property Type="String" Name="STRAS" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="ORT01" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="PSTLZ" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="REGIO" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="NAMEP" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NIF" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="CODSAP" Nullable="true" />
+          <Property Type="String" Name="LAND" Nullable="true" MaxLength="3" />
+          <Property Type="Int16" Name="ESTADO_ES01" Nullable="true" />
+          <Property Type="Int16" Name="ESTADO_ES02" Nullable="true" />
+          <Property Type="Int16" Name="INTRUM" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_VW_MAT_LIQ_ext_Read_Result">
+          <Property Type="String" Name="MATE_MATERIAL_ID" Nullable="true" />
+          <Property Type="String" Name="MATE_MATERIAL_TEXT" Nullable="true" />
+          <Property Type="String" Name="EAN11" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="NHRN_COD" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="CODSAP" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="DIVISION" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="RED" Nullable="true" MaxLength="4" />
+          <Property Type="Decimal" Name="IVA" Nullable="true" Precision="18" Scale="8" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CLUBS_AX_TESTModelStoreContainer" CdmEntityContainer="CLUBS_AX_TESTEntities">
+          <EntitySetMapping Name="MSocios">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MSocios">
+              <MappingFragment StoreEntitySet="MSocios">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sIdSocio" ColumnName="sIdSocio" />
+                <ScalarProperty Name="sCodSAP" ColumnName="sCodSAP" />
+                <ScalarProperty Name="sNIF" ColumnName="sNIF" />
+                <ScalarProperty Name="sNombreFcia" ColumnName="sNombreFcia" />
+                <ScalarProperty Name="sDireccion" ColumnName="sDireccion" />
+                <ScalarProperty Name="sCP" ColumnName="sCP" />
+                <ScalarProperty Name="sPoblacion" ColumnName="sPoblacion" />
+                <ScalarProperty Name="iVirtualId" ColumnName="iVirtualId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoCambioMaterial_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoCambioMaterial_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoCambioMaterial_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoCambioMaterial_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoCambioMaterial_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoCambioMaterial_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_AnexoCambioMaterial_Read_Result">
+                <ScalarProperty Name="CN_old" ColumnName="CN_old" />
+                <ScalarProperty Name="CN_NEW" ColumnName="CN_NEW" />
+                <ScalarProperty Name="SAP_old" ColumnName="SAP_old" />
+                <ScalarProperty Name="SAP_new" ColumnName="SAP_new" />
+                <ScalarProperty Name="dFechaInicio" ColumnName="dFechaInicio" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoCambioMaterial_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoCambioMaterial_Update" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSocios_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSocios_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSocios_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSocios_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSocios_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSocios_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_AnexoClubSocios_Read_Result">
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="sIdSocio" ColumnName="sIdSocio" />
+                <ScalarProperty Name="iFormaCobro" ColumnName="iFormaCobro" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSocios_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSocios_Update" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSubClub_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSubClub_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSubClub_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSubClub_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_AnexoClubSubClub_Read_Result">
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+                <ScalarProperty Name="sRed" ColumnName="sRed" />
+                <ScalarProperty Name="sTipoFarmacia" ColumnName="sTipoFarmacia" />
+                <ScalarProperty Name="IdTipoFarmacia" ColumnName="IdTipoFarmacia" />
+                <ScalarProperty Name="sTipoVenta" ColumnName="sTipoVenta" />
+                <ScalarProperty Name="IdTipoSubVenta" ColumnName="IdTipoSubVenta" />
+                <ScalarProperty Name="sZona" ColumnName="sZona" />
+                <ScalarProperty Name="sCooperativa" ColumnName="sCooperativa" />
+                <ScalarProperty Name="sClub" ColumnName="sClub" />
+                <ScalarProperty Name="sSubClub" ColumnName="sSubClub" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="sComentarios" ColumnName="sComentarios" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoClubSubClub_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoClubSubClub_Update" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoExpositores_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoExpositores_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoExpositores_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoExpositores_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoExpositores_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoExpositores_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_AnexoExpositores_Read_Result">
+                <ScalarProperty Name="sCodigoExpositor" ColumnName="sCodigoExpositor" />
+                <ScalarProperty Name="sCNOk" ColumnName="sCNOk" />
+                <ScalarProperty Name="sDescripcion" ColumnName="sDescripcion" />
+                <ScalarProperty Name="sMayorista" ColumnName="sMayorista" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoExpositores_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoExpositores_Update" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoFarmacia_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoFarmacia_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoFarmacia_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoFarmacia_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoFarmacia_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoFarmacia_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_AnexoTipoFarmacia_Read_Result">
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+                <ScalarProperty Name="sNIF" ColumnName="sNIF" />
+                <ScalarProperty Name="sTipoFarmacia" ColumnName="sTipoFarmacia" />
+                <ScalarProperty Name="IdTipoFarmacia" ColumnName="IdTipoFarmacia" />
+                <ScalarProperty Name="sCliente" ColumnName="sCliente" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoFarmacia_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoFarmacia_Update" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoVenta_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoVenta_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoVenta_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoVenta_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoVenta_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoVenta_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_AnexoTipoVenta_Read_Result">
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+                <ScalarProperty Name="sCodigo" ColumnName="sCodigo" />
+                <ScalarProperty Name="sTipoVenta" ColumnName="sTipoVenta" />
+                <ScalarProperty Name="IdTipoSubVenta" ColumnName="IdTipoSubVenta" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="sNotas" ColumnName="sNotas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AnexoTipoVenta_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_AnexoTipoVenta_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MSubClubs_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSubClubs_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MSubClubs_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSubClubs_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MSubClubs_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSubClubs_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MSubClubs_Read_Result">
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+                <ScalarProperty Name="sIdSubClub" ColumnName="sIdSubClub" />
+                <ScalarProperty Name="sNombreSubClub" ColumnName="sNombreSubClub" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MSubClubs_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSubClubs_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoCosteGestion_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoCosteGestion_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoCosteGestion_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoCosteGestion_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoCosteGestion_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoCosteGestion_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MTipoCosteGestion_Read_Result">
+                <ScalarProperty Name="IdTipoCosteGestion" ColumnName="IdTipoCosteGestion" />
+                <ScalarProperty Name="sTipoCosteGestion" ColumnName="sTipoCosteGestion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MTipoCosteGestion_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoCosteGestion_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoDescuento_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoDescuento_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoDescuento_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoDescuento_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoDescuento_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoDescuento_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MTipoDescuento_Read_Result">
+                <ScalarProperty Name="IdTipoDescuento" ColumnName="IdTipoDescuento" />
+                <ScalarProperty Name="sTipoDescuento" ColumnName="sTipoDescuento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MTipoDescuento_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoDescuento_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoFarmacia_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoFarmacia_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoFarmacia_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoFarmacia_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoFarmacia_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoFarmacia_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MTipoFarmacia_Read_Result">
+                <ScalarProperty Name="IdTipoFarmacia" ColumnName="IdTipoFarmacia" />
+                <ScalarProperty Name="sTipoFarmacia" ColumnName="sTipoFarmacia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MTipoFarmacia_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoFarmacia_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoMaterial_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoMaterial_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoMaterial_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoMaterial_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoMaterial_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoMaterial_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MTipoMaterial_Read_Result">
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="sTipo" ColumnName="sTipo" />
+                <ScalarProperty Name="bCuentaBaseTramo" ColumnName="bCuentaBaseTramo" />
+                <ScalarProperty Name="bCuentaBaseCalculo" ColumnName="bCuentaBaseCalculo" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MTipoMaterial_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoMaterial_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoTramo_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoTramo_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoTramo_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoTramo_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoTramo_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoTramo_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MTipoTramo_Read_Result">
+                <ScalarProperty Name="IdTipoTramo" ColumnName="IdTipoTramo" />
+                <ScalarProperty Name="sTipoTramo" ColumnName="sTipoTramo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MTipoTramo_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoTramo_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MtipoVariableCG_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MtipoVariableCG_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MtipoVariableCG_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MtipoVariableCG_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MtipoVariableCG_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MtipoVariableCG_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MtipoVariableCG_Read_Result">
+                <ScalarProperty Name="IdTipoVariableCG" ColumnName="IdTipoVariableCG" />
+                <ScalarProperty Name="sTipoVariableCG" ColumnName="sTipoVariableCG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MtipoVariableCG_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MtipoVariableCG_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoVenta_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoVenta_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoVenta_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoVenta_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MTipoVenta_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoVenta_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MTipoVenta_Read_Result">
+                <ScalarProperty Name="IdTipoSubVenta" ColumnName="IdTipoSubVenta" />
+                <ScalarProperty Name="STipoSubVenta" ColumnName="STipoSubVenta" />
+                <ScalarProperty Name="IdTipoVenta" ColumnName="IdTipoVenta" />
+                <ScalarProperty Name="sTipoVenta" ColumnName="sTipoVenta" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MTipoVenta_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MTipoVenta_Update" />
+          <FunctionImportMapping FunctionImportName="ValidarDatos" FunctionName="CLUBS_AX_TESTModel.Store.ValidarDatos" />
+          <FunctionImportMapping FunctionImportName="usp_MSocios_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSocios_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MSocios_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSocios_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MSocios_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSocios_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MSocios_Read_Result">
+                <ScalarProperty Name="sIdSocio" ColumnName="sIdSocio" />
+                <ScalarProperty Name="sCodSAP" ColumnName="sCodSAP" />
+                <ScalarProperty Name="sNIF" ColumnName="sNIF" />
+                <ScalarProperty Name="sNombreFcia" ColumnName="sNombreFcia" />
+                <ScalarProperty Name="sDireccion" ColumnName="sDireccion" />
+                <ScalarProperty Name="sCP" ColumnName="sCP" />
+                <ScalarProperty Name="sPoblacion" ColumnName="sPoblacion" />
+                <ScalarProperty Name="iVirtualId" ColumnName="iVirtualId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MSocios_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MSocios_Update" />
+          <FunctionImportMapping FunctionImportName="usp_MMateriales_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MMateriales_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MMateriales_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MMateriales_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MMateriales_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MMateriales_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MMateriales_Read_Result">
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+                <ScalarProperty Name="sCodSAPMaterial" ColumnName="sCodSAPMaterial" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="sCodNacional" ColumnName="sCodNacional" />
+                <ScalarProperty Name="fPrecio" ColumnName="fPrecio" />
+                <ScalarProperty Name="iIdTipo" ColumnName="iIdTipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MMateriales_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MMateriales_Update" />
+          <EntitySetMapping Name="MAgrupadorMayoristaClubs">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MAgrupadorMayoristaClub">
+              <MappingFragment StoreEntitySet="MAgrupadorMayoristaClub">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+                <ScalarProperty Name="sIdMayoristaAgrupador" ColumnName="sIdMayoristaAgrupador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MClubs">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MClub">
+              <MappingFragment StoreEntitySet="MClubs">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+                <ScalarProperty Name="sNombreClub" ColumnName="sNombreClub" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MMayoristas">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MMayorista">
+              <MappingFragment StoreEntitySet="MMayorista">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="IdTipoFarmaciaPorDefecto" ColumnName="IdTipoFarmaciaPorDefecto" />
+                <ScalarProperty Name="sMayoristaAgrupador" ColumnName="sMayoristaAgrupador" />
+                <ScalarProperty Name="sIdMayoristaAgrupador" ColumnName="sIdMayoristaAgrupador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MSubClubs">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MSubClub">
+              <MappingFragment StoreEntitySet="MSubClubs">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+                <ScalarProperty Name="sNombreSubClub" ColumnName="sNombreSubClub" />
+                <ScalarProperty Name="sIdSubClub" ColumnName="sIdSubClub" />
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MMateriales1">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MMateriales">
+              <MappingFragment StoreEntitySet="MMateriales">
+                <ScalarProperty Name="sDescripcionMaterial" ColumnName="sDescripcionMaterial" />
+                <ScalarProperty Name="DescuentoAdelantadoClub" ColumnName="DescuentoAdelantadoClub" />
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="iIdTipo" ColumnName="iIdTipo" />
+                <ScalarProperty Name="fPrecio" ColumnName="fPrecio" />
+                <ScalarProperty Name="sCodNacional" ColumnName="sCodNacional" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="sCodSAPMaterial" ColumnName="sCodSAPMaterial" />
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnexoCambioMaterials">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.AnexoCambioMaterial">
+              <MappingFragment StoreEntitySet="AnexoCambioMaterial">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaInicio" ColumnName="dFechaInicio" />
+                <ScalarProperty Name="SAP_new" ColumnName="SAP_new" />
+                <ScalarProperty Name="SAP_old" ColumnName="SAP_old" />
+                <ScalarProperty Name="CN_NEW" ColumnName="CN_NEW" />
+                <ScalarProperty Name="CN_old" ColumnName="CN_old" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnexoClubSubClubs">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.AnexoClubSubClub">
+              <MappingFragment StoreEntitySet="AnexoClubSubClub">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sComentarios" ColumnName="sComentarios" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="sSubClub" ColumnName="sSubClub" />
+                <ScalarProperty Name="sClub" ColumnName="sClub" />
+                <ScalarProperty Name="sCooperativa" ColumnName="sCooperativa" />
+                <ScalarProperty Name="sZona" ColumnName="sZona" />
+                <ScalarProperty Name="IdTipoSubVenta" ColumnName="IdTipoSubVenta" />
+                <ScalarProperty Name="sTipoVenta" ColumnName="sTipoVenta" />
+                <ScalarProperty Name="IdTipoFarmacia" ColumnName="IdTipoFarmacia" />
+                <ScalarProperty Name="sTipoFarmacia" ColumnName="sTipoFarmacia" />
+                <ScalarProperty Name="sRed" ColumnName="sRed" />
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnexoExpositores1">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.AnexoExpositores">
+              <MappingFragment StoreEntitySet="AnexoExpositores">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="sMayorista" ColumnName="sMayorista" />
+                <ScalarProperty Name="IdMayorista" ColumnName="IdMayorista" />
+                <ScalarProperty Name="sDescripcion" ColumnName="sDescripcion" />
+                <ScalarProperty Name="sCNOk" ColumnName="sCNOk" />
+                <ScalarProperty Name="sCodigoExpositor" ColumnName="sCodigoExpositor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnexoTipoFarmacias">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.AnexoTipoFarmacia">
+              <MappingFragment StoreEntitySet="AnexoTipoFarmacia">
+                <ScalarProperty Name="IdTipoVenta" ColumnName="IdTipoVenta" />
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="sCliente" ColumnName="sCliente" />
+                <ScalarProperty Name="IdTipoFarmacia" ColumnName="IdTipoFarmacia" />
+                <ScalarProperty Name="sTipoFarmacia" ColumnName="sTipoFarmacia" />
+                <ScalarProperty Name="sNIF" ColumnName="sNIF" />
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnexoTipoVentas">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.AnexoTipoVenta">
+              <MappingFragment StoreEntitySet="AnexoTipoVenta">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sNotas" ColumnName="sNotas" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="IdTipoSubVenta" ColumnName="IdTipoSubVenta" />
+                <ScalarProperty Name="sTipoVenta" ColumnName="sTipoVenta" />
+                <ScalarProperty Name="sCodigo" ColumnName="sCodigo" />
+                <ScalarProperty Name="sIdMayorista" ColumnName="sIdMayorista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnexoClubSocios1">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.AnexoClubSocios">
+              <MappingFragment StoreEntitySet="AnexoClubSocios">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="iFormaCobro" ColumnName="iFormaCobro" />
+                <ScalarProperty Name="sIdSocio" ColumnName="sIdSocio" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="sIdClub" ColumnName="sIdClub" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAbono_IVA">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MAbono_IVA">
+              <MappingFragment StoreEntitySet="MAbono_IVA">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+                <ScalarProperty Name="fIVA" ColumnName="fIVA" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="sIdDivision" ColumnName="sIdDivision" />
+                <ScalarProperty Name="sAbonoIVA" ColumnName="sAbonoIVA" />
+                <ScalarProperty Name="sIdAbonoIVA" ColumnName="sIdAbonoIVA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MFormasCobroes">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MFormasCobro">
+              <MappingFragment StoreEntitySet="MFormasCobro">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+                <ScalarProperty Name="sFormaCobro" ColumnName="sFormaCobro" />
+                <ScalarProperty Name="IdFormaCobro" ColumnName="IdFormaCobro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MPeriodicidads">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MPeriodicidad">
+              <MappingFragment StoreEntitySet="MPeriodicidad">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sPeriodicidad" ColumnName="sPeriodicidad" />
+                <ScalarProperty Name="IdPeriodicidad" ColumnName="IdPeriodicidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTipoDescuentoes">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MTipoDescuento">
+              <MappingFragment StoreEntitySet="MTipoDescuento">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sTipoDescuento" ColumnName="sTipoDescuento" />
+                <ScalarProperty Name="IdTipoDescuento" ColumnName="IdTipoDescuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTipoFarmacias">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MTipoFarmacia">
+              <MappingFragment StoreEntitySet="MTipoFarmacia">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sTipoFarmacia" ColumnName="sTipoFarmacia" />
+                <ScalarProperty Name="IdTipoFarmacia" ColumnName="IdTipoFarmacia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTipoMaterials">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MTipoMaterial">
+              <MappingFragment StoreEntitySet="MTipoMaterial">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="bCuentaBaseCalculo" ColumnName="bCuentaBaseCalculo" />
+                <ScalarProperty Name="bCuentaBaseTramo" ColumnName="bCuentaBaseTramo" />
+                <ScalarProperty Name="sTipo" ColumnName="sTipo" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTipoTramoes">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MTipoTramo">
+              <MappingFragment StoreEntitySet="MTipoTramo">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sTipoTramo" ColumnName="sTipoTramo" />
+                <ScalarProperty Name="IdTipoTramo" ColumnName="IdTipoTramo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MTipoVentas">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.MTipoVenta">
+              <MappingFragment StoreEntitySet="MTipoVenta">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sTipoVenta" ColumnName="sTipoVenta" />
+                <ScalarProperty Name="IdTipoVenta" ColumnName="IdTipoVenta" />
+                <ScalarProperty Name="STipoSubVenta" ColumnName="STipoSubVenta" />
+                <ScalarProperty Name="IdTipoSubVenta" ColumnName="IdTipoSubVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_MClubs_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MClubs_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MAbono_IVA_Delete" FunctionName="CLUBS_AX_TESTModel.Store.usp_MAbono_IVA_Delete" />
+          <FunctionImportMapping FunctionImportName="usp_MAbono_IVA_Insert" FunctionName="CLUBS_AX_TESTModel.Store.usp_MAbono_IVA_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_MAbono_IVA_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_MAbono_IVA_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_MAbono_IVA_Read_Result">
+                <ScalarProperty Name="sIdAbonoIVA" ColumnName="sIdAbonoIVA" />
+                <ScalarProperty Name="sAbonoIVA" ColumnName="sAbonoIVA" />
+                <ScalarProperty Name="sIdDivision" ColumnName="sIdDivision" />
+                <ScalarProperty Name="sIdRed" ColumnName="sIdRed" />
+                <ScalarProperty Name="fIVA" ColumnName="fIVA" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_MAbono_IVA_Update" FunctionName="CLUBS_AX_TESTModel.Store.usp_MAbono_IVA_Update" />
+          <EntitySetMapping Name="sabanas">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.sabana">
+              <MappingFragment StoreEntitySet="sabana">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="IdTipoTramo" ColumnName="IdTipoTramo" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="IdTipoDescuento2" ColumnName="IdTipoDescuento2" />
+                <ScalarProperty Name="IdTipoDescuento" ColumnName="IdTipoDescuento" />
+                <ScalarProperty Name="idSubClub" ColumnName="idSubClub" />
+                <ScalarProperty Name="idClub" ColumnName="idClub" />
+                <ScalarProperty Name="IdTipoVenta" ColumnName="IdTipoVenta" />
+                <ScalarProperty Name="IdPeriodicidad" ColumnName="IdPeriodicidad" />
+                <ScalarProperty Name="sRed" ColumnName="sRed" />
+                <ScalarProperty Name="sMayoristaAgrupador" ColumnName="sMayoristaAgrupador" />
+                <ScalarProperty Name="sIdMayoristaAgrupador" ColumnName="sIdMayoristaAgrupador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sabanaCGs">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.sabanaCG">
+              <MappingFragment StoreEntitySet="sabanaCG">
+                <ScalarProperty Name="IdSabanaCGMatCal" ColumnName="IdSabanaCGMatCal" />
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dFechaIni" ColumnName="dFechaIni" />
+                <ScalarProperty Name="PTCosteGestion" ColumnName="PTCosteGestion" />
+                <ScalarProperty Name="ImpCosteGestion" ColumnName="ImpCosteGestion" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+                <ScalarProperty Name="IdSabanaCGMat" ColumnName="IdSabanaCGMat" />
+                <ScalarProperty Name="IdTipoVariableCG" ColumnName="IdTipoVariableCG" />
+                <ScalarProperty Name="IdTipoCosteGestion" ColumnName="IdTipoCosteGestion" />
+                <ScalarProperty Name="idSubClub" ColumnName="idSubClub" />
+                <ScalarProperty Name="idClub" ColumnName="idClub" />
+                <ScalarProperty Name="IdTipoVenta" ColumnName="IdTipoVenta" />
+                <ScalarProperty Name="IdPeriodicidad" ColumnName="IdPeriodicidad" />
+                <ScalarProperty Name="sRed" ColumnName="sRed" />
+                <ScalarProperty Name="sMayoristaAgrupador" ColumnName="sMayoristaAgrupador" />
+                <ScalarProperty Name="sIdMayoristaAgrupador" ColumnName="sIdMayoristaAgrupador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SabanaCGMateriales">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.SabanaCGMateriale">
+              <MappingFragment StoreEntitySet="SabanaCGMateriales">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="IdTipoMaterial" ColumnName="IdTipoMaterial" />
+                <ScalarProperty Name="IdSabanaCGMat" ColumnName="IdSabanaCGMat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SabanaCGTramos">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.SabanaCGTramo">
+              <MappingFragment StoreEntitySet="SabanaCGTramos">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="fDescuento" ColumnName="fDescuento" />
+                <ScalarProperty Name="fRangoMax" ColumnName="fRangoMax" />
+                <ScalarProperty Name="fRangoMin" ColumnName="fRangoMin" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sabanaGrupos">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.sabanaGrupos">
+              <MappingFragment StoreEntitySet="sabanaGrupos">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="dFechaFin" ColumnName="dFechaFin" />
+                <ScalarProperty Name="dfechaIni" ColumnName="dfechaIni" />
+                <ScalarProperty Name="IdTipoTramo" ColumnName="IdTipoTramo" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+                <ScalarProperty Name="fDescuento" ColumnName="fDescuento" />
+                <ScalarProperty Name="sEAN" ColumnName="sEAN" />
+                <ScalarProperty Name="sSapAlemania" ColumnName="sSapAlemania" />
+                <ScalarProperty Name="SCodNacional" ColumnName="SCodNacional" />
+                <ScalarProperty Name="IdSubClub" ColumnName="IdSubClub" />
+                <ScalarProperty Name="IdClub" ColumnName="IdClub" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SabanaTramos">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.SabanaTramo">
+              <MappingFragment StoreEntitySet="SabanaTramos">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="fDescuento" ColumnName="fDescuento" />
+                <ScalarProperty Name="fRangoMax" ColumnName="fRangoMax" />
+                <ScalarProperty Name="fRangoMin" ColumnName="fRangoMin" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SabanaTramosTipoMaterials">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.SabanaTramosTipoMaterial">
+              <MappingFragment StoreEntitySet="SabanaTramosTipoMaterial">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="IdTipoMaterial" ColumnName="IdTipoMaterial" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SabanaTramosTipoVentas">
+            <EntityTypeMapping TypeName="CLUBS_AX_TESTModel.SabanaTramosTipoVenta">
+              <MappingFragment StoreEntitySet="SabanaTramosTipoVenta">
+                <ScalarProperty Name="sUsuarioActualizacion" ColumnName="sUsuarioActualizacion" />
+                <ScalarProperty Name="dFechaActualizacion" ColumnName="dFechaActualizacion" />
+                <ScalarProperty Name="IdTipoVenta" ColumnName="IdTipoVenta" />
+                <ScalarProperty Name="IdTramo" ColumnName="IdTramo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_VW_CLI_LIQ_ext_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_VW_CLI_LIQ_ext_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_VW_CLI_LIQ_ext_Read_Result">
+                <ScalarProperty Name="KUNNR" ColumnName="KUNNR" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="STRAS" ColumnName="STRAS" />
+                <ScalarProperty Name="ORT01" ColumnName="ORT01" />
+                <ScalarProperty Name="PSTLZ" ColumnName="PSTLZ" />
+                <ScalarProperty Name="REGIO" ColumnName="REGIO" />
+                <ScalarProperty Name="NAMEP" ColumnName="NAMEP" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="CODSAP" ColumnName="CODSAP" />
+                <ScalarProperty Name="LAND" ColumnName="LAND" />
+                <ScalarProperty Name="ESTADO_ES01" ColumnName="ESTADO_ES01" />
+                <ScalarProperty Name="ESTADO_ES02" ColumnName="ESTADO_ES02" />
+                <ScalarProperty Name="INTRUM" ColumnName="INTRUM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_VW_MAT_LIQ_ext_Read" FunctionName="CLUBS_AX_TESTModel.Store.usp_VW_MAT_LIQ_ext_Read">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CLUBS_AX_TESTModel.usp_VW_MAT_LIQ_ext_Read_Result">
+                <ScalarProperty Name="MATE_MATERIAL_ID" ColumnName="MATE_MATERIAL_ID" />
+                <ScalarProperty Name="MATE_MATERIAL_TEXT" ColumnName="MATE_MATERIAL_TEXT" />
+                <ScalarProperty Name="EAN11" ColumnName="EAN11" />
+                <ScalarProperty Name="NHRN_COD" ColumnName="NHRN_COD" />
+                <ScalarProperty Name="CODSAP" ColumnName="CODSAP" />
+                <ScalarProperty Name="DIVISION" ColumnName="DIVISION" />
+                <ScalarProperty Name="RED" ColumnName="RED" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

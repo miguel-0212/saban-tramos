@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GESTCRMCEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="w_ApliacionesUsuarios">
+          <Key>
+            <PropertyRef Name="iIdAplicacionUsuario" />
+          </Key>
+          <Property Name="iIdAplicacionUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iIdAplicacion" Type="int" />
+          <Property Name="iIdUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="w_AplicacionesStada">
+          <Key>
+            <PropertyRef Name="iIdAplicacion" />
+          </Key>
+          <Property Name="iIdAplicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sDescripcionAplicacion" Type="varchar" MaxLength="50" />
+          <Property Name="sUrlAplicacion" Type="varchar" MaxLength="150" />
+          <Property Name="bShow" Type="bit" />
+          <Property Name="sNomImagen" Type="varchar" MaxLength="100" />
+          <Property Name="sCodigoApl" Type="varchar" MaxLength="10" />
+          <Property Name="bHaveRoles" Type="bit" />
+          <Property Name="bMoreThanOneRole" Type="bit" />
+        </EntityType>
+        <EntityType Name="w_CargosStada">
+          <Key>
+            <PropertyRef Name="iIdCargo" />
+          </Key>
+          <Property Name="iIdCargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sCodigoCargo" Type="varchar" MaxLength="10" />
+          <Property Name="sDescripcioCargo" Type="varchar" MaxLength="50" />
+          <Property Name="iIDRed" Type="int" />
+        </EntityType>
+        <EntityType Name="w_CargosUsuarios">
+          <Key>
+            <PropertyRef Name="iIdCargoUsuario" />
+          </Key>
+          <Property Name="iIdCargoUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iIdUsuario" Type="int" />
+          <Property Name="iIdCargo" Type="int" />
+          <Property Name="iIdSuperior" Type="int" />
+        </EntityType>
+        <EntityType Name="w_UsuariosGlobal">
+          <Key>
+            <PropertyRef Name="iIdUsuario" />
+          </Key>
+          <Property Name="iIdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sUsuario" Type="nvarchar" MaxLength="150" />
+          <Property Name="sNombreUsuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="sTituloTrabajo" Type="nvarchar" MaxLength="100" />
+          <Property Name="sEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="iIdDelegadoCH" Type="int" />
+          <Property Name="iIdDelegadoGX" Type="int" />
+          <Property Name="isAdmin" Type="bit" />
+          <Property Name="iEstado" Type="int" />
+        </EntityType>
+        <Association Name="FK_ApliacionesUsuarios_AplicacionesStada">
+          <End Role="w_AplicacionesStada" Type="Self.w_AplicacionesStada" Multiplicity="0..1" />
+          <End Role="w_ApliacionesUsuarios" Type="Self.w_ApliacionesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_AplicacionesStada">
+              <PropertyRef Name="iIdAplicacion" />
+            </Principal>
+            <Dependent Role="w_ApliacionesUsuarios">
+              <PropertyRef Name="iIdAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApliacionesUsuarios_UsuariosGlobal">
+          <End Role="w_UsuariosGlobal" Type="Self.w_UsuariosGlobal" Multiplicity="0..1" />
+          <End Role="w_ApliacionesUsuarios" Type="Self.w_ApliacionesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_UsuariosGlobal">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="w_ApliacionesUsuarios">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CargosUsuarios_CargosStada">
+          <End Role="w_CargosStada" Type="Self.w_CargosStada" Multiplicity="0..1" />
+          <End Role="w_CargosUsuarios" Type="Self.w_CargosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_CargosStada">
+              <PropertyRef Name="iIdCargo" />
+            </Principal>
+            <Dependent Role="w_CargosUsuarios">
+              <PropertyRef Name="iIdCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CargosUsuarios_UsuariosGlobal">
+          <End Role="w_UsuariosGlobal" Type="Self.w_UsuariosGlobal" Multiplicity="0..1" />
+          <End Role="w_CargosUsuarios" Type="Self.w_CargosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_UsuariosGlobal">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="w_CargosUsuarios">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CargosUsuarios_UsuariosGlobal_2">
+          <End Role="w_UsuariosGlobal" Type="Self.w_UsuariosGlobal" Multiplicity="0..1" />
+          <End Role="w_CargosUsuarios" Type="Self.w_CargosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_UsuariosGlobal">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="w_CargosUsuarios">
+              <PropertyRef Name="iIdSuperior" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetListaAplicaciones_Web" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iIdApp" Type="int" Mode="In" />
+          <Parameter Name="nombreApp" Type="varchar" Mode="In" />
+          <Parameter Name="codApp" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetRolesOH_Web" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iIdUser" Type="int" Mode="In" />
+          <Parameter Name="iIdUserRole" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetUsuariosByUser_Web" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="GESTCRMCEModelStoreContainer">
+          <EntitySet Name="w_ApliacionesUsuarios" EntityType="Self.w_ApliacionesUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="w_AplicacionesStada" EntityType="Self.w_AplicacionesStada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="w_CargosStada" EntityType="Self.w_CargosStada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="w_CargosUsuarios" EntityType="Self.w_CargosUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="w_UsuariosGlobal" EntityType="Self.w_UsuariosGlobal" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ApliacionesUsuarios_AplicacionesStada" Association="Self.FK_ApliacionesUsuarios_AplicacionesStada">
+            <End Role="w_AplicacionesStada" EntitySet="w_AplicacionesStada" />
+            <End Role="w_ApliacionesUsuarios" EntitySet="w_ApliacionesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApliacionesUsuarios_UsuariosGlobal" Association="Self.FK_ApliacionesUsuarios_UsuariosGlobal">
+            <End Role="w_UsuariosGlobal" EntitySet="w_UsuariosGlobal" />
+            <End Role="w_ApliacionesUsuarios" EntitySet="w_ApliacionesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CargosUsuarios_CargosStada" Association="Self.FK_CargosUsuarios_CargosStada">
+            <End Role="w_CargosStada" EntitySet="w_CargosStada" />
+            <End Role="w_CargosUsuarios" EntitySet="w_CargosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CargosUsuarios_UsuariosGlobal" Association="Self.FK_CargosUsuarios_UsuariosGlobal">
+            <End Role="w_UsuariosGlobal" EntitySet="w_UsuariosGlobal" />
+            <End Role="w_CargosUsuarios" EntitySet="w_CargosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CargosUsuarios_UsuariosGlobal_2" Association="Self.FK_CargosUsuarios_UsuariosGlobal_2">
+            <End Role="w_UsuariosGlobal" EntitySet="w_UsuariosGlobal" />
+            <End Role="w_CargosUsuarios" EntitySet="w_CargosUsuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GESTCRMCEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="w_ApliacionesUsuarios">
+          <Key>
+            <PropertyRef Name="iIdAplicacionUsuario" />
+          </Key>
+          <Property Name="iIdAplicacionUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdAplicacion" Type="Int32" />
+          <Property Name="iIdUsuario" Type="Int32" />
+          <NavigationProperty Name="w_AplicacionesStada" Relationship="Self.FK_ApliacionesUsuarios_AplicacionesStada" FromRole="w_ApliacionesUsuarios" ToRole="w_AplicacionesStada" />
+          <NavigationProperty Name="w_UsuariosGlobal" Relationship="Self.FK_ApliacionesUsuarios_UsuariosGlobal" FromRole="w_ApliacionesUsuarios" ToRole="w_UsuariosGlobal" />
+        </EntityType>
+        <EntityType Name="w_AplicacionesStada">
+          <Key>
+            <PropertyRef Name="iIdAplicacion" />
+          </Key>
+          <Property Name="iIdAplicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sDescripcionAplicacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sUrlAplicacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="bShow" Type="Boolean" />
+          <Property Name="sNomImagen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sCodigoApl" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="bHaveRoles" Type="Boolean" />
+          <Property Name="bMoreThanOneRole" Type="Boolean" />
+          <NavigationProperty Name="w_ApliacionesUsuarios" Relationship="Self.FK_ApliacionesUsuarios_AplicacionesStada" FromRole="w_AplicacionesStada" ToRole="w_ApliacionesUsuarios" />
+        </EntityType>
+        <EntityType Name="w_CargosStada">
+          <Key>
+            <PropertyRef Name="iIdCargo" />
+          </Key>
+          <Property Name="iIdCargo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sCodigoCargo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="sDescripcioCargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="iIDRed" Type="Int32" />
+          <NavigationProperty Name="w_CargosUsuarios" Relationship="Self.FK_CargosUsuarios_CargosStada" FromRole="w_CargosStada" ToRole="w_CargosUsuarios" />
+        </EntityType>
+        <EntityType Name="w_CargosUsuarios">
+          <Key>
+            <PropertyRef Name="iIdCargoUsuario" />
+          </Key>
+          <Property Name="iIdCargoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iIdUsuario" Type="Int32" />
+          <Property Name="iIdCargo" Type="Int32" />
+          <Property Name="iIdSuperior" Type="Int32" />
+          <NavigationProperty Name="w_CargosStada" Relationship="Self.FK_CargosUsuarios_CargosStada" FromRole="w_CargosUsuarios" ToRole="w_CargosStada" />
+          <NavigationProperty Name="w_UsuariosGlobal" Relationship="Self.FK_CargosUsuarios_UsuariosGlobal" FromRole="w_CargosUsuarios" ToRole="w_UsuariosGlobal" />
+          <NavigationProperty Name="w_UsuariosGlobal1" Relationship="Self.FK_CargosUsuarios_UsuariosGlobal_2" FromRole="w_CargosUsuarios" ToRole="w_UsuariosGlobal" />
+        </EntityType>
+        <EntityType Name="w_UsuariosGlobal">
+          <Key>
+            <PropertyRef Name="iIdUsuario" />
+          </Key>
+          <Property Name="iIdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sUsuario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="sNombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sTituloTrabajo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="iIdDelegadoCH" Type="Int32" />
+          <Property Name="iIdDelegadoGX" Type="Int32" />
+          <Property Name="isAdmin" Type="Boolean" />
+          <Property Name="iEstado" Type="Int32" />
+          <NavigationProperty Name="w_ApliacionesUsuarios" Relationship="Self.FK_ApliacionesUsuarios_UsuariosGlobal" FromRole="w_UsuariosGlobal" ToRole="w_ApliacionesUsuarios" />
+          <NavigationProperty Name="w_CargosUsuarios" Relationship="Self.FK_CargosUsuarios_UsuariosGlobal" FromRole="w_UsuariosGlobal" ToRole="w_CargosUsuarios" />
+          <NavigationProperty Name="w_CargosUsuarios1" Relationship="Self.FK_CargosUsuarios_UsuariosGlobal_2" FromRole="w_UsuariosGlobal" ToRole="w_CargosUsuarios" />
+        </EntityType>
+        <Association Name="FK_ApliacionesUsuarios_AplicacionesStada">
+          <End Role="w_AplicacionesStada" Type="Self.w_AplicacionesStada" Multiplicity="0..1" />
+          <End Role="w_ApliacionesUsuarios" Type="Self.w_ApliacionesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_AplicacionesStada">
+              <PropertyRef Name="iIdAplicacion" />
+            </Principal>
+            <Dependent Role="w_ApliacionesUsuarios">
+              <PropertyRef Name="iIdAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApliacionesUsuarios_UsuariosGlobal">
+          <End Role="w_UsuariosGlobal" Type="Self.w_UsuariosGlobal" Multiplicity="0..1" />
+          <End Role="w_ApliacionesUsuarios" Type="Self.w_ApliacionesUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_UsuariosGlobal">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="w_ApliacionesUsuarios">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CargosUsuarios_CargosStada">
+          <End Role="w_CargosStada" Type="Self.w_CargosStada" Multiplicity="0..1" />
+          <End Role="w_CargosUsuarios" Type="Self.w_CargosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_CargosStada">
+              <PropertyRef Name="iIdCargo" />
+            </Principal>
+            <Dependent Role="w_CargosUsuarios">
+              <PropertyRef Name="iIdCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CargosUsuarios_UsuariosGlobal">
+          <End Role="w_UsuariosGlobal" Type="Self.w_UsuariosGlobal" Multiplicity="0..1" />
+          <End Role="w_CargosUsuarios" Type="Self.w_CargosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_UsuariosGlobal">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="w_CargosUsuarios">
+              <PropertyRef Name="iIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CargosUsuarios_UsuariosGlobal_2">
+          <End Role="w_UsuariosGlobal" Type="Self.w_UsuariosGlobal" Multiplicity="0..1" />
+          <End Role="w_CargosUsuarios" Type="Self.w_CargosUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="w_UsuariosGlobal">
+              <PropertyRef Name="iIdUsuario" />
+            </Principal>
+            <Dependent Role="w_CargosUsuarios">
+              <PropertyRef Name="iIdSuperior" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GESTCRMCEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="w_ApliacionesUsuarios" EntityType="Self.w_ApliacionesUsuarios" />
+          <EntitySet Name="w_AplicacionesStada" EntityType="Self.w_AplicacionesStada" />
+          <EntitySet Name="w_CargosStada" EntityType="Self.w_CargosStada" />
+          <EntitySet Name="w_CargosUsuarios" EntityType="Self.w_CargosUsuarios" />
+          <EntitySet Name="w_UsuariosGlobal" EntityType="Self.w_UsuariosGlobal" />
+          <AssociationSet Name="FK_ApliacionesUsuarios_AplicacionesStada" Association="Self.FK_ApliacionesUsuarios_AplicacionesStada">
+            <End Role="w_AplicacionesStada" EntitySet="w_AplicacionesStada" />
+            <End Role="w_ApliacionesUsuarios" EntitySet="w_ApliacionesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApliacionesUsuarios_UsuariosGlobal" Association="Self.FK_ApliacionesUsuarios_UsuariosGlobal">
+            <End Role="w_UsuariosGlobal" EntitySet="w_UsuariosGlobal" />
+            <End Role="w_ApliacionesUsuarios" EntitySet="w_ApliacionesUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CargosUsuarios_CargosStada" Association="Self.FK_CargosUsuarios_CargosStada">
+            <End Role="w_CargosStada" EntitySet="w_CargosStada" />
+            <End Role="w_CargosUsuarios" EntitySet="w_CargosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CargosUsuarios_UsuariosGlobal" Association="Self.FK_CargosUsuarios_UsuariosGlobal">
+            <End Role="w_UsuariosGlobal" EntitySet="w_UsuariosGlobal" />
+            <End Role="w_CargosUsuarios" EntitySet="w_CargosUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CargosUsuarios_UsuariosGlobal_2" Association="Self.FK_CargosUsuarios_UsuariosGlobal_2">
+            <End Role="w_UsuariosGlobal" EntitySet="w_UsuariosGlobal" />
+            <End Role="w_CargosUsuarios" EntitySet="w_CargosUsuarios" />
+          </AssociationSet>
+          <FunctionImport Name="GetListaAplicaciones_Web" ReturnType="Collection(GESTCRMCEModel.GetListaAplicaciones_Web_Result)">
+            <Parameter Name="iIdApp" Mode="In" Type="Int32" />
+            <Parameter Name="nombreApp" Mode="In" Type="String" />
+            <Parameter Name="codApp" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetRolesOH_Web" ReturnType="Collection(GESTCRMCEModel.GetRolesOH_Web_Result)">
+            <Parameter Name="iIdUser" Mode="In" Type="Int32" />
+            <Parameter Name="iIdUserRole" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetUsuariosByUser_Web" ReturnType="Collection(GESTCRMCEModel.GetUsuariosByUser_Web_Result)">
+            <Parameter Name="sUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetListaAplicaciones_Web_Result">
+          <Property Type="Int32" Name="iIdAplicacion" Nullable="false" />
+          <Property Type="String" Name="sDescripcionAplicacion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sUrlAplicacion" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="bShow" Nullable="true" />
+          <Property Type="String" Name="sNomImagen" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="sCodigoApl" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="bHaveRoles" Nullable="true" />
+          <Property Type="Boolean" Name="bMoreThanOneRole" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetRolesOH_Web_Result">
+          <Property Type="Int32" Name="iIdRoleOH" Nullable="true" />
+          <Property Type="Int32" Name="iIdUser" Nullable="true" />
+          <Property Type="Int32" Name="iIdUserRole" Nullable="false" />
+          <Property Type="Int32" Name="iIdRol" Nullable="false" />
+          <Property Type="String" Name="sCodigoRol" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="sDescripcionRol" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="GetUsuariosByUser_Web_Result">
+          <Property Type="Int32" Name="idUsuario" Nullable="false" />
+          <Property Type="String" Name="usuario" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="nombreUsuario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="delegadoGX" Nullable="true" />
+          <Property Type="Int32" Name="delegadoCH" Nullable="true" />
+          <Property Type="Boolean" Name="administrador" Nullable="true" />
+          <Property Type="String" Name="cargo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="red" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="idSuperior" Nullable="true" />
+          <Property Type="String" Name="usuarioSuperior" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="nombreUsuarioSuperior" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="activo" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GESTCRMCEModelStoreContainer" CdmEntityContainer="GESTCRMCEEntities">
+          <EntitySetMapping Name="w_ApliacionesUsuarios">
+            <EntityTypeMapping TypeName="GESTCRMCEModel.w_ApliacionesUsuarios">
+              <MappingFragment StoreEntitySet="w_ApliacionesUsuarios">
+                <ScalarProperty Name="iIdAplicacionUsuario" ColumnName="iIdAplicacionUsuario" />
+                <ScalarProperty Name="iIdAplicacion" ColumnName="iIdAplicacion" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="w_AplicacionesStada">
+            <EntityTypeMapping TypeName="GESTCRMCEModel.w_AplicacionesStada">
+              <MappingFragment StoreEntitySet="w_AplicacionesStada">
+                <ScalarProperty Name="iIdAplicacion" ColumnName="iIdAplicacion" />
+                <ScalarProperty Name="sDescripcionAplicacion" ColumnName="sDescripcionAplicacion" />
+                <ScalarProperty Name="sUrlAplicacion" ColumnName="sUrlAplicacion" />
+                <ScalarProperty Name="bShow" ColumnName="bShow" />
+                <ScalarProperty Name="sNomImagen" ColumnName="sNomImagen" />
+                <ScalarProperty Name="sCodigoApl" ColumnName="sCodigoApl" />
+                <ScalarProperty Name="bHaveRoles" ColumnName="bHaveRoles" />
+                <ScalarProperty Name="bMoreThanOneRole" ColumnName="bMoreThanOneRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="w_CargosStada">
+            <EntityTypeMapping TypeName="GESTCRMCEModel.w_CargosStada">
+              <MappingFragment StoreEntitySet="w_CargosStada">
+                <ScalarProperty Name="iIdCargo" ColumnName="iIdCargo" />
+                <ScalarProperty Name="sCodigoCargo" ColumnName="sCodigoCargo" />
+                <ScalarProperty Name="sDescripcioCargo" ColumnName="sDescripcioCargo" />
+                <ScalarProperty Name="iIDRed" ColumnName="iIDRed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="w_CargosUsuarios">
+            <EntityTypeMapping TypeName="GESTCRMCEModel.w_CargosUsuarios">
+              <MappingFragment StoreEntitySet="w_CargosUsuarios">
+                <ScalarProperty Name="iIdCargoUsuario" ColumnName="iIdCargoUsuario" />
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="iIdCargo" ColumnName="iIdCargo" />
+                <ScalarProperty Name="iIdSuperior" ColumnName="iIdSuperior" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="w_UsuariosGlobal">
+            <EntityTypeMapping TypeName="GESTCRMCEModel.w_UsuariosGlobal">
+              <MappingFragment StoreEntitySet="w_UsuariosGlobal">
+                <ScalarProperty Name="iIdUsuario" ColumnName="iIdUsuario" />
+                <ScalarProperty Name="sUsuario" ColumnName="sUsuario" />
+                <ScalarProperty Name="sNombreUsuario" ColumnName="sNombreUsuario" />
+                <ScalarProperty Name="sTituloTrabajo" ColumnName="sTituloTrabajo" />
+                <ScalarProperty Name="sEmail" ColumnName="sEmail" />
+                <ScalarProperty Name="iIdDelegadoCH" ColumnName="iIdDelegadoCH" />
+                <ScalarProperty Name="iIdDelegadoGX" ColumnName="iIdDelegadoGX" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="iEstado" ColumnName="iEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetListaAplicaciones_Web" FunctionName="GESTCRMCEModel.Store.GetListaAplicaciones_Web">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GESTCRMCEModel.GetListaAplicaciones_Web_Result">
+                <ScalarProperty Name="iIdAplicacion" ColumnName="iIdAplicacion" />
+                <ScalarProperty Name="sDescripcionAplicacion" ColumnName="sDescripcionAplicacion" />
+                <ScalarProperty Name="sUrlAplicacion" ColumnName="sUrlAplicacion" />
+                <ScalarProperty Name="bShow" ColumnName="bShow" />
+                <ScalarProperty Name="sNomImagen" ColumnName="sNomImagen" />
+                <ScalarProperty Name="sCodigoApl" ColumnName="sCodigoApl" />
+                <ScalarProperty Name="bHaveRoles" ColumnName="bHaveRoles" />
+                <ScalarProperty Name="bMoreThanOneRole" ColumnName="bMoreThanOneRole" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetRolesOH_Web" FunctionName="GESTCRMCEModel.Store.GetRolesOH_Web">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GESTCRMCEModel.GetRolesOH_Web_Result">
+                <ScalarProperty Name="iIdRoleOH" ColumnName="iIdRoleOH" />
+                <ScalarProperty Name="iIdUser" ColumnName="iIdUser" />
+                <ScalarProperty Name="iIdUserRole" ColumnName="iIdUserRole" />
+                <ScalarProperty Name="iIdRol" ColumnName="iIdRol" />
+                <ScalarProperty Name="sCodigoRol" ColumnName="sCodigoRol" />
+                <ScalarProperty Name="sDescripcionRol" ColumnName="sDescripcionRol" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUsuariosByUser_Web" FunctionName="GESTCRMCEModel.Store.GetUsuariosByUser_Web">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GESTCRMCEModel.GetUsuariosByUser_Web_Result">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="delegadoGX" ColumnName="delegadoGX" />
+                <ScalarProperty Name="delegadoCH" ColumnName="delegadoCH" />
+                <ScalarProperty Name="administrador" ColumnName="administrador" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="red" ColumnName="red" />
+                <ScalarProperty Name="idSuperior" ColumnName="idSuperior" />
+                <ScalarProperty Name="usuarioSuperior" ColumnName="usuarioSuperior" />
+                <ScalarProperty Name="nombreUsuarioSuperior" ColumnName="nombreUsuarioSuperior" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

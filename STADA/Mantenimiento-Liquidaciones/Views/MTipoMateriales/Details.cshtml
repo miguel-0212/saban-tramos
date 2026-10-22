@@ -1,0 +1,75 @@
+﻿@model Mantenimiento_Liquidaciones.MTipoMaterial
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MTipoMaterial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bCuentaBaseTramo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bCuentaBaseTramo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bCuentaBaseCalculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bCuentaBaseCalculo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sIdRed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sIdRed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>

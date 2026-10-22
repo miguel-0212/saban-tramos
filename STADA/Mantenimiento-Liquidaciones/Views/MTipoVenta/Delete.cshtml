@@ -1,0 +1,65 @@
+﻿@model Mantenimiento_Liquidaciones.MTipoVenta
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+<div>
+    <h4>MTipoVenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.STipoSubVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STipoSubVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTipoVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTipoVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sTipoVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sTipoVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="24462cd4dc5e43f5a04070a18d8b747c" Name="Diagram1">
+        <EntityTypeShape EntityType="GESTCRMCEModel.w_ApliacionesUsuarios" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTCRMCEModel.w_AplicacionesStada" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTCRMCEModel.w_CargosStada" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTCRMCEModel.w_CargosUsuarios" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GESTCRMCEModel.w_UsuariosGlobal" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="GESTCRMCEModel.FK_ApliacionesUsuarios_AplicacionesStada" ManuallyRouted="false" />
+        <AssociationConnector Association="GESTCRMCEModel.FK_ApliacionesUsuarios_UsuariosGlobal" ManuallyRouted="false" />
+        <AssociationConnector Association="GESTCRMCEModel.FK_CargosUsuarios_CargosStada" ManuallyRouted="false" />
+        <AssociationConnector Association="GESTCRMCEModel.FK_CargosUsuarios_UsuariosGlobal" ManuallyRouted="false" />
+        <AssociationConnector Association="GESTCRMCEModel.FK_CargosUsuarios_UsuariosGlobal_2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

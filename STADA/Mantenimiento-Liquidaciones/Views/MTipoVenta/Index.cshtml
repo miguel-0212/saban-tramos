@@ -1,0 +1,251 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MTipoVenta>
+
+@{
+    ViewBag.Title = "Maestra Tipo Venta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="chargeFilters" value="true" data-buttonRefresh="searchFiltrosOfertasHospitales" data-idTable="tablaMTipoVenta" />
+        <a href="~/PDF/PDF" data-url="~/PDF/PDF" target="_blank" id="pdfButton" hidden>PDF</a>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+            .Name("filtrosMTipoVenta")
+            .ExpandMode(PanelBarExpandMode.Multiple)
+            .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable = "tablaMTipoVenta" })
+            .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+            .Items(panelbar =>
+            {
+                panelbar.Add().Text("Filtros - Maestra Tipo Venta")
+                    .Expanded(true)
+                    .Content(
+                    @<div>
+                        <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                            <a id="searchFiltrosMTipoVenta" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMTipoVenta">
+                                <i class="fas fa-search"></i>
+                            </a>
+                            <a id="removeFiltrosMTipoVenta" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar" data-idTable="tablaMTipoVenta">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                        <div class="textAllignInherit">
+                            <div class="row col-12">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                    <label class="labelFilters">Tipo SubVenta: </label>
+                                    <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sTipoSubVenta" />
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                    <label class="labelFilters">Tipo Venta: </label>
+                                    <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sTipoVenta" />
+                                </div>
+
+                            </div>
+                            <div class="row col-12 divSeconLineFilter">
+                            </div>
+                        </div>
+                    </div>
+                    );
+            })
+        )
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MTipoVenta>()
+            .Name("tablaMTipoVenta")
+            .Excel(excel => excel.FileName("tablaMTipoVenta.xlsx"))
+            .Height(800)
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
+                    command.Destroy()
+                        .Text(" ")
+                        .IconClass("fas fa-trash-alt")
+                        .HtmlAttributes(new { @class = "IconCommandClass", Title = "Eliminar" });
+                    command.Edit();
+                }).Width(150);
+                columns.Bound(p => p.STipoSubVenta).Title("Tipo SubVenta");
+                columns.Bound(p => p.IdTipoVenta).Title("Id Tipo Venta");
+                columns.Bound(p => p.sTipoVenta).Title("Tipo Venta");
+                columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                columns.Bound(p => p.sUsuarioActualizacion).Title("Usuario Actualización");
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Template(
+                @<text>
+                    <div class="row" style="display:contents">
+                        <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo">
+                            <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                        </a>
+                    </div>
+                    <div class="buttonsRightToolbar">
+                        <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMTipoVenta')">
+                            <span class="k-icon k-i-excel"></span>Exportar a Excel
+                        </a>
+                        <div class="refreshBtnContainer">
+                            <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                        </div>
+                        <span class="k-textbox k-grid-search k-display-flex">
+                            <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                            <span class="k-input-icon">
+                                <span class="k-icon k-i-search colorIcons"></span>
+                            </span>
+                        </span>
+                    </div>
+                </text> );
+            })
+            .PersistSelection(true)
+            .Scrollable(sc => sc.Enabled(true))
+            .Pageable(pager => pager
+                .Numeric(true)
+                .Info(true)
+                .PreviousNext(true)
+                .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+            )
+            .Search(s =>
+            {
+                s.Field(c => c.STipoSubVenta);
+                s.Field(c => c.sTipoVenta);
+                s.Field(c => c.sUsuarioActualizacion);
+            })
+            .Sortable(sortable => sortable
+                .AllowUnsort(true)
+                .SortMode(GridSortMode.MultipleColumn)
+                .ShowIndexes(true)
+            )
+            .Filterable()
+            .ColumnMenu(menu =>
+            {
+                menu.Columns(columns =>
+                {
+                    columns
+                    .Sort("asc");
+                });
+            })
+            .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMTipoVenta" })
+            .Events(events =>
+            {
+                events.Edit("onEdit");
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMTipoVenta", "MTipoVenta").Data("additionalDataIndexMTipoVenta"))
+                .Model(model =>
+                {
+                    model.Id(p => p.IdTipoSubVenta);
+                    model.Field(p => p.IdTipoSubVenta);
+
+                    model.Field(p => p.STipoSubVenta);
+                    model.Field(p => p.IdTipoVenta);
+                    model.Field(p => p.sTipoVenta);
+                    model.Field(p => p.dFechaActualizacion).Editable(false);
+                    model.Field(p => p.sUsuarioActualizacion).Editable(false);
+                })
+                .Update(update => update.Action("Edit", "MTipoVenta"))
+                .Destroy(destroy => destroy.Action("Delete", "MTipoVenta"))
+                .Create(create => create.Action("Create", "MTipoVenta"))
+                .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+)
+            )
+           .Events(events =>
+                {
+                    events.Remove("onGridRemove");
+                })
+            .Editable(editable => editable
+                .DisplayDeleteConfirmation(false)
+                .Mode(GridEditMode.PopUp)
+                .CreateAt(GridInsertRowPosition.Top)
+
+
+            )
+        )
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMTipoVenta").data("kendoGrid");
+        grid.addRow();
+    });
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+   function onGridRemove(e) {
+    e.preventDefault();
+
+    var id = e.model.IdTipoSubVenta;
+    var dFechaIni = kendo.toString(e.model.dFechaIni, "yyyy-MM-dd HH:mm:ss.fff");
+    debugger;
+    var dialog = $("#dialog-confirmacion").data("kendoDialog");
+    if (!dialog) {
+        dialog = $("#dialog-confirmacion").kendoDialog({
+            width: "450px",
+            title: "Confirmar Eliminación",
+            closable: false,
+            modal: true,
+            actions: [
+                {
+                    text: 'Cancelar',
+                    action: function () {
+                        recargarTabla("tablaMTipoVenta");
+                        dialog.close();
+                    }
+                },
+                {
+                    text: 'Eliminar',
+                    primary: true,
+                    action: function () {
+                       // Realizar la eliminación
+                        $.ajax({
+                            url: '@Url.Action("Delete", "MTipoVenta")', // URL de tu acción de eliminación
+                            type: 'POST',
+                            data: { id: id}, // Pasar el ID del registro a eliminar
+                            success: function(result) {
+                                if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                    e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                    recargarTabla("tablaMTipoVenta");
+                                    dialog.close();
+                                    // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                } else {
+                                    alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                }
+                            },
+                            error: function() {
+                                alert("Ocurrió un error al intentar eliminar el registro.");
+                            }
+                        });
+
+                    }
+                }
+            ]
+        }).data("kendoDialog");
+    }
+
+    // Abrir el diálogo
+    dialog.open();
+}
+
+</script>

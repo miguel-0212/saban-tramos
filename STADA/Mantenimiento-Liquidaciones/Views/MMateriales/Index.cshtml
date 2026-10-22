@@ -1,0 +1,525 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MMateriales>
+
+@{
+    ViewBag.Title = "Maestro Materiales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosMMateriales")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaMMateriales" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Maestra Materiales")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosMMateriales" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMMateriales">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosMMateriales" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaMMateriales">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">idClub: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sIdClub" />
+                             </div>
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">Código Nacional: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sCodNacional" />
+                            </div>
+                               <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">: Cod Material SAP: </label>
+                                <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sCodSAPMaterial" />
+                            </div>
+
+                         </div>
+                        <div class="row col-12 divSeconLineFilter">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <label class="labelFilters">Fecha Inicio:</label>
+                                <input type="date" class="inputsFilters filterInputTable filterClassSaveData" id="dFechaIni" />
+                            </div>
+                             <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Fecha Fin:</label>
+                                 <input type="date" class="inputsFilters filterInputTable filterClassSaveData" id="dFechaFin" />
+                             </div>
+                        </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MMateriales>()
+                    .Name("tablaMMateriales")
+                    .Excel(excel => excel
+                        .FileName("tablaMMateriales.xlsx")
+                        .AllPages(true)
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Finalizar vigencia" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.sIdClub).Title("Id Club");
+                        columns.Bound(p => p.sCodNacional).Title("Código Nacional");
+                        columns.Bound(p => p.sCodSAPMaterial).Title("Cod Material SAP");
+                        columns.Bound(p => p.sDescripcionMaterial).Title("Descripcion Material");
+                        columns.Bound(p => p.fPrecio).Title("PVL"); 
+                        columns.Bound(p => p.dFechaIni).Title("Fecha Inicial").Format("{0:dd/MM/yyyy}");
+                        columns.Bound(p => p.dFechaFin).Title("Fecha Final").Format("{0:dd/MM/yyyy}");
+
+                    }).ToolBar(toolbar =>
+                    {
+                        toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMMateriales')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                    <button type="button" class="k-button k-button-icontext"  data-toggle="modal" data-target="#modalCargaMasiva">
+                        <span class="k-icon k-i-upload"></span>Carga Masiva
+                    </button>
+                    <a id="deleteSelected" class="k-button k-button-icontext" href="#">
+                        <span class="k-icon fas fa-trash-alt"></span>Finalizar vigencia
+                    </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Selectable(selectable => selectable
+                    .Mode(GridSelectionMode.Multiple) // Habilita la selección múltiple
+                    .Type(GridSelectionType.Row) // Selecciona filas completas
+                )
+                .Scrollable(sc => sc.Enabled(true))
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sIdClub);
+                    s.Field(c => c.sCodNacional);
+                    s.Field(c => c.sCodSAPMaterial);
+
+
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMMateriales" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                    events.Remove("onGridRemove");
+                })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMMateriales", "MMateriales").Data("additionalDataIndexMMateriales"))
+                .Model(model =>
+                {
+                    model.Id(p => p.sIdClub);
+                    model.Field(p => p.sIdClub).Editable(true);
+
+                    model.Field(p => p.sCodNacional);
+                    model.Field(p => p.sCodSAPMaterial);
+                })
+
+            .Update(update => update.Action("Edit", "MMateriales"))
+            .Destroy(destroy => destroy.Action("Delete", "MMateriales"))
+            .Create(create => create.Action("Create", "MMateriales"))
+            .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+                .RequestEnd("function(e) { onRequestEnd(e, 'tablaMMateriales'); }")
+             )
+         )
+        .Editable(editable => editable
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+    </div>
+</div>
+<div id="dialog-confirmacion">
+    <p id="dialogConfirmacionTexto">¿Estás seguro de que deseas finalizar la vigencia de este registro?</p>
+    <div class="form-group">
+        <label for="fechaFinVigenciaDialog">Fecha de fin de vigencia:</label>
+        <input type="date" id="fechaFinVigenciaDialog" class="form-control" />
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('#btnDescargarPlantillaCompleta').click(function () {
+            window.location.href = '@Url.Action("DescargarPlantillaCompleto", "MMateriales")';
+        });
+    });
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    function onEdit(e) {
+
+        var esCreacion = e.model.isNew();
+        var window = e.container.data("kendoWindow");
+        var updateButton = e.container.find(".k-grid-update");
+        updateButton.text("Guardar Cambios");
+
+        e.container.find("input[type='text'], textarea, select").each(function () {
+            var fieldName = $(this).attr("name");
+            if (fieldName !== "dFechaActualizacion" && fieldName !== "sUsuarioActualizacion" && fieldName !== "sIdAbonoIVA") {
+                $(this).attr("required", "required"); // Añadir el atributo required
+                $(this).attr("data-val-required", "Este campo es obligatorio."); // Mensaje de validación personalizado
+            }
+        });
+        e.container.find("label[for='sIdClub']").text("Id Club");
+        e.container.find("label[for='sCodSAPMaterial']").text("Cod Material SAP");
+        e.container.find("label[for='dFechaIni']").text("Fecha Ini");
+        e.container.find("label[for='dFechaFin']").text("Fecha Fin");
+        e.container.find("label[for='sCodNacional']").text("Código Nacional");
+        e.container.find("label[for='fPrecio']").text("PVL");
+        e.container.find("label[for='iIdTipo']").text("Clasificacion Material");
+        e.container.find("label[for='iEstado']").text("Estado");
+        e.container.find("label[for='sUsuarioActualizacion']").text("Usuario Actualizacion");
+
+        if (esCreacion) {
+            initComboBoxIdClub(e.container, "sIdClub");
+            initComboBoxVW_MAT_LIQ(e.container, "sCodSAPMaterial");
+
+            e.container.find("input[type='text'], textarea, select").val("");
+            window.title("Crear Nuevo Registro");
+            updateButton.text("Guardar Cambios");
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion");
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+            createDatePicker(e.container, "dFechaIni",null);
+            createDatePicker(e.container, "dFechaFin");
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+            UsuarioActualizacionInput.attr("readonly", true);
+            UsuarioActualizacionInput.addClass("k-state-disabled");
+
+        } else {
+            // Cambiar el título de la ventana
+            window.title("Editar Registro");
+            initComboBoxIdClub(e.container, "sIdClub", e.model.sIdClub);
+            e.container.find("input:first").parents(".k-edit-field").hide();
+            e.container.find("label:first").parents(".k-edit-label").hide();
+            e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+            var fechaActualizacionInput = e.container.find("#dFechaActualizacion"); // Asegúrate de que el ID del campo sea correcto
+            fechaActualizacionInput.val(kendo.toString(new Date(), "yyyy-MM-dd HH:mm:ss.fff")); // Formato de fecha compatible con SQL Server
+            e.container.find("#sUsuarioActualizacion").parents(".k-edit-field").hide();
+            e.container.find("label[for='sUsuarioActualizacion']").parents(".k-edit-label").hide();
+
+            // dFechaIni es parte de la clave primaria del registro: no debe poder editarse.
+            // No se usa createDatePicker (new Date(...) + zona horaria local) para evitar que el
+            // valor se desplace un día; se fija directamente con los componentes UTC de la fecha
+            // original. Se deshabilita tanto si Kendo generó un widget kendoDatePicker para el
+            // campo (caso más probable, dado que dFechaIni es DateTime en el modelo) como si quedó
+            // como input plano, y se oculta en ambos casos.
+            if (e.model.dFechaIni) {
+                var fechaIniOriginal = new Date(e.model.dFechaIni);
+                var fechaIniUTC = new Date(Date.UTC(fechaIniOriginal.getUTCFullYear(), fechaIniOriginal.getUTCMonth(), fechaIniOriginal.getUTCDate()));
+                var fechaIniTexto = fechaIniUTC.getUTCFullYear() + "-" +
+                    ("0" + (fechaIniUTC.getUTCMonth() + 1)).slice(-2) + "-" +
+                    ("0" + fechaIniUTC.getUTCDate()).slice(-2);
+
+                var fechaIniWidget = e.container.find("#dFechaIni").data("kendoDatePicker");
+                if (fechaIniWidget) {
+                    fechaIniWidget.value(fechaIniUTC);
+                    fechaIniWidget.enable(false);
+                } else {
+                    e.container.find("#dFechaIni").val(fechaIniTexto);
+                    e.container.find("#dFechaIni").attr("readonly", true);
+                    e.container.find("#dFechaIni").addClass("k-state-disabled");
+                }
+            }
+            e.container.find("#dFechaIni").parents(".k-edit-field").hide();
+            e.container.find("label[for='dFechaIni']").parents(".k-edit-label").hide();
+
+            createDatePicker(e.container, "dFechaFin", e.model.dFechaFin);
+            var UsuarioActualizacionInput = e.container.find("#sUsuarioActualizacion");
+            var nameUser = $("#nameUserHiddenLayout").val();
+            UsuarioActualizacionInput.val(nameUser);
+        }
+
+    }
+
+    // El diálogo #dialog-confirmacion lo comparten la finalización de vigencia de una fila
+    // (onGridRemove) y la finalización masiva (#deleteSelected). Se crea una única vez con
+    // acciones genéricas; cada flujo asigna window.onConfirmarFinalizarVigencia con lo que debe
+    // ejecutarse al confirmar, justo antes de abrir el diálogo.
+    function getDialogConfirmacionFinalizarVigencia() {
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Finalización de Vigencia",
+                closable: false,
+                modal: true,
+                visible: false, // Kendo debe controlar la visibilidad; el div no debe llevar display:none inline
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+                            dialog.close();
+                        }
+                    },
+                    {
+                        text: 'Finalizar Vigencia',
+                        primary: true,
+                        action: function () {
+                            if (typeof window.onConfirmarFinalizarVigencia === "function") {
+                                window.onConfirmarFinalizarVigencia();
+                            }
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+        return dialog;
+    }
+
+    // Inicializar el diálogo compartido ya al cargar la página (con visible:false), para que
+    // Kendo controle su visibilidad desde el principio y el contenido no quede huérfano/oculto.
+    $(document).ready(function () {
+        getDialogConfirmacionFinalizarVigencia();
+    });
+
+    function onGridRemove(e) {
+        e.preventDefault();
+
+        var model = e.model;
+        var dialog = getDialogConfirmacionFinalizarVigencia();
+
+        window.onConfirmarFinalizarVigencia = function () {
+            var fechaFinVigencia = $("#fechaFinVigenciaDialog").val();
+            $.ajax({
+                url: '@Url.Action("Delete", "MMateriales")',
+                type: 'POST',
+                data: {
+                    sIdClub: model.sIdClub,
+                    dFechaIni: kendo.toString(model.dFechaIni, "dd/MM/yyyy HH:mm:ss"),
+                    sCodNacional: model.sCodNacional,
+                    dFechaFinVigencia: fechaFinVigencia
+                },
+                success: function (result) {
+                    if (result.success) {
+                        recargarTabla("tablaMMateriales");
+                        dialog.close();
+                    } else {
+                        alert("Error al finalizar la vigencia: " + result.message);
+                    }
+                },
+                error: function () {
+                    alert("Ocurrió un error al intentar finalizar la vigencia.");
+                }
+            });
+        };
+
+        // Precargar la fecha de hoy (el usuario puede cambiarla antes de confirmar)
+        $("#fechaFinVigenciaDialog").val(kendo.toString(new Date(), "yyyy-MM-dd"));
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMMateriales").data("kendoGrid");
+        grid.addRow();
+    });
+    //    @Html.ActionLink("Cargar Masivamente", "CargarArchivo")
+    $(document).ready(function () {
+        $("#btnDescargar").click(function () {
+            window.location.href = '@Url.Action("DescargarPlantilla", "MMateriales")';
+    });
+
+    $("#btnCargar").click(function () {
+        var fileInput = document.getElementById("fileUpload");
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("file", file);
+
+        $("#errorList").empty();
+
+        $.ajax({
+            url: '@Url.Action("CargarDesdeExcel", "MMateriales")',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert(response.message);
+                if (response.errors && response.errors.length > 0) {
+                    response.errors.forEach(function (error) {
+                        $("#errorList").append(`<li>${error}</li>`);
+                    });
+                } else {
+                    recargarTabla("tablaMMateriales");
+                }
+            },
+            error: function (xhr) {
+                alert("Ocurrió un error al procesar la carga masiva. Revisa el archivo e inténtalo de nuevo.");
+                $("#errorList").append(`<li>${xhr.status}: ${xhr.statusText}</li>`);
+            }
+        });
+    });
+    });
+
+
+
+$("#deleteSelected").click(function(e) {
+    e.preventDefault();
+
+    var grid = $("#tablaMMateriales").data("kendoGrid");
+    var selectedRows = grid.select();
+    var selectedData = [];
+
+    selectedRows.each(function() {
+        var dataItem = grid.dataItem(this);
+        selectedData.push({
+            sIdClub: dataItem.sIdClub,
+            dFechaIni: kendo.toString(dataItem.dFechaIni, "dd/MM/yyyy HH:mm:ss"),
+            sCodNacional: dataItem.sCodNacional
+        });
+    });
+
+    if (selectedData.length === 0) {
+        alert("Por favor seleccione al menos un material para eliminar.");
+        return;
+    }
+
+    var dialog = getDialogConfirmacionFinalizarVigencia();
+
+    window.onConfirmarFinalizarVigencia = function () {
+        var fechaFinVigencia = $("#fechaFinVigenciaDialog").val();
+        // Realizar la finalización de vigencia masiva
+        $.ajax({
+            url: '@Url.Action("MassDelete", "MMateriales")', // URL de tu acción de eliminación masiva
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ selectedMaterials: selectedData, dFechaFinVigencia: fechaFinVigencia }),
+            success: function(result) {
+                if (result.success) {
+                    // Elimina los registros de la grilla
+                    selectedRows.each(function() {
+                        grid.removeRow($(this));
+                    });
+
+                    // Refrescar el grid
+                    grid.dataSource.read();
+                    grid.refresh();
+                    // Desmarcar todas las filas seleccionadas
+                    grid.clearSelection();
+                    window.recargarTabla("tablaMMateriales");
+                    dialog.close();
+                } else {
+                    alert("Error al finalizar la vigencia de los registros: " + result.message);
+                }
+            },
+            error: function () {
+                alert("Ocurrió un error al intentar finalizar la vigencia de los registros.");
+            }
+        });
+    };
+
+    // Precargar la fecha de hoy (el usuario puede cambiarla antes de confirmar)
+    $("#fechaFinVigenciaDialog").val(kendo.toString(new Date(), "yyyy-MM-dd"));
+
+    dialog.open(); // Abre el diálogo de confirmación
+});
+
+   
+
+</script>
+<div id="modalCargaMasiva" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Carga Masiva de Materiales</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileUpload" accept=".xlsx" />
+                <button id="btnCargar" class="btn btn-primary">Cargar</button>
+                <button id="btnDescargar" class="btn btn-secondary">Descargar Plantilla</button>
+                <!--<button id="btnDescargarPlantillaCompleta" class="btn btn-secondary">Descargar Plantilla Masiva</button>-->
+                <ul id="errorList"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+

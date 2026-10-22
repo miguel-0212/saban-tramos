@@ -1,0 +1,244 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MTipoTramo>
+
+@{
+    ViewBag.Title = "Maestra Tipo tramo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosMTipoTramo")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaMTipoTramo" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Maestra Tipo tramo")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosMTipoTramo" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMTipoTramo">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosMTipoTramo" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaMTipoTramo">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Tipo Tramo: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sTipoTramo" />
+                             </div>
+                             
+
+                         </div>
+                         <div class="row col-12 divSeconLineFilter">
+                         </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MTipoTramo>()
+                    .Name("tablaMTipoTramo")
+                    .Excel(excel => excel
+                        .FileName("tablaMTipoTramo.xlsx")
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Eliminar" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.sTipoTramo).Title("Tipo Tramo");
+                        columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.sUsuarioActualizacion).Title("Usuario Actualizacion");
+                    }).ToolBar(toolbar =>
+                    {
+                        toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMTipoTramo')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Scrollable(sc => sc.Enabled(true))
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sTipoTramo);
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMTipoTramo" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMTipoTramo", "MTipoTramo").Data("additionalDataIndexMTipoTramo"))
+                .Model(model =>
+                {
+                    model.Id(p => p.IdTipoTramo);
+                    model.Field(p => p.sTipoTramo).Editable(true);
+                    model.Field(p => p.dFechaActualizacion).Editable(true);
+                    model.Field(p => p.sUsuarioActualizacion).Editable(true);
+                })
+            .Update(update => update.Action("Edit", "MTipoTramo"))
+            .Destroy(destroy => destroy.Action("Delete", "MTipoTramo"))
+            .Create(create => create.Action("Create", "MTipoTramo"))
+            .Events(events => events
+                .Error("onError") // Manejar errores del DataSource
+             )
+         )
+        .Events(events =>
+            {
+                events.Remove("onGridRemove");
+                events.Save("recargarTabla('tablaMTipoMaterial')");
+
+            })
+        .Editable(editable => editable
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    
+
+    function onGridRemove(e) {
+        e.preventDefault();
+
+        var id = e.model.IdTipoTramo;
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar Eliminación",
+                closable: false,
+                modal: true,
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+                            dialog.close();
+                            recargarTabla("tablaMTipoTramo")
+                        }
+                    },
+                    {
+                        text: 'Eliminar',
+                        primary: true,
+                        action: function () {
+                           // Realizar la eliminación
+                            $.ajax({
+                                url: '@Url.Action("Delete", "MTipoTramo")', // URL de tu acción de eliminación
+                                type: 'POST',
+                                data: { id: id }, // Pasar el ID del registro a eliminar
+                                success: function(result) {
+                                    if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                        e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                        dialog.close();
+                                        recargarTabla("tablaMTipoTramo")
+                                    } else {
+                                        alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                    }
+                                },
+                                error: function() {
+                                    alert("Ocurrió un error al intentar eliminar el registro.");
+                                }
+                            });
+
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMTipoTramo").data("kendoGrid");
+        grid.addRow();
+    });
+
+</script>

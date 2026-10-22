@@ -1,0 +1,42 @@
+﻿[
+  {
+    "outputFile": "Content/css/breadcrumb.css",
+    "inputFile": "Content/css/breadcrumb.scss"
+  },
+  {
+    "outputFile": "Content/css/fieldset.css",
+    "inputFile": "Content/css/fieldset.scss"
+  },
+  {
+    "outputFile": "Content/css/kendoModi.css",
+    "inputFile": "Content/css/kendoModi.scss"
+  },
+  {
+    "outputFile": "Content/css/layout.css",
+    "inputFile": "Content/css/layout.scss"
+  },
+  {
+    "outputFile": "Content/css/loading.css",
+    "inputFile": "Content/css/loading.scss"
+  },
+  {
+    "outputFile": "Content/css/validacion.css",
+    "inputFile": "Content/css/validacion.scss"
+  },
+  {
+    "outputFile": "Content/css/variables.css",
+    "inputFile": "Content/css/variables.scss"
+  },
+  {
+    "outputFile": "Content/css/appCss/menu.css",
+    "inputFile": "Content/css/appCss/menu.scss"
+  },
+  {
+    "outputFile": "Content/css/views.css",
+    "inputFile": "Content/css/views.scss"
+  },
+  {
+    "outputFile": "Content/css/appCss/app.css",
+    "inputFile": "Content/css/appCss/app.scss"
+  }
+]

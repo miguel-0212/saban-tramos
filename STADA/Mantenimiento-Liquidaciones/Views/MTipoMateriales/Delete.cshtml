@@ -1,0 +1,81 @@
+﻿@model Mantenimiento_Liquidaciones.MTipoMaterial
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+<div>
+    <h4>MTipoMaterial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sTipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bCuentaBaseTramo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bCuentaBaseTramo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bCuentaBaseCalculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bCuentaBaseCalculo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sIdRed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sIdRed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

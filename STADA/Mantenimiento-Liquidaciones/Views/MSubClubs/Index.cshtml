@@ -1,0 +1,309 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MSubClub>
+
+@{
+    ViewBag.Title = "Maestro SubClub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" style="pointer-events:all;">
+    <div>
+        <input type="hidden" id="typeView" value="Index" />
+        @(Html.Kendo().PanelBar()
+         .Name("filtrosMSubClub")
+         .ExpandMode(PanelBarExpandMode.Multiple)
+         .HtmlAttributes(new { @Class = "divFiltros kendoClass", data_idTable= "tablaMSubClub" })
+         .Events(ev => ev.Collapse("onCollapseFilters").Expand("onExpanseFilters"))
+         .Items(panelbar =>
+         {
+             panelbar.Add().Text("Filtros - Maestro SubClub")
+                 .Expanded(true)
+                 .Content(
+                 @<div>
+                     <div class="row buttonSearchFilters columns columns-right btn-group float-right">
+                         <a id="searchFiltrosMSubClub" class="btn btn-secondary filterDataTableWithFilters saveSessionStorageFilters" title="Buscar" data-idTable="tablaMSubClub">
+                             <i class="fas fa-search"></i>
+                         </a>
+                         <a id="removeFiltrosMSubClub" class="btn btn-secondary removeDataTableWithFilters removeSessionStorageFilters" title="Borrar"  data-idTable="tablaMSubClub">
+                             <i class="fas fa-trash"></i>
+                         </a>
+                     </div>
+                     <div class="textAllignInherit">
+                         <div class="row col-12">
+                              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                 <label class="labelFilters">Nombre SubClub: </label>
+                                 <input type="text" class="inputsFilters filterInputTable filterClassSaveData" id="sNombreSubClub" />
+                             </div>
+
+
+                         </div>
+                         <div class="row col-12 divSeconLineFilter">
+                         </div>
+                     </div>
+                 </div>
+             );
+         })
+		)
+
+    </div>
+    <div>
+        @(Html.Kendo().Grid<MSubClub>()
+                    .Name("tablaMSubClub")
+                    .Excel(excel => excel
+                        .FileName("tablaMSubClub.xlsx")
+                        )
+                    .Height(800)
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                            //command.Custom("Detail").Text(" ").IconClass("fas fa-info-circle").HtmlAttributes(new { @class = "IconCommandClass", Title = "Ver detalle" }).Click("goToDetail");
+                            command.Destroy() // Utiliza el método Destroy para la eliminación
+                                       .Text(" ")
+                                       .IconClass("fas fa-trash-alt")
+                                       .HtmlAttributes(new { @class = "IconCommandClass", Title = "Inactivar" });
+                            command.Edit();
+                        }).Width(150);
+                        columns.Bound(p => p.sNombreSubClub).Title("Nombre SubClub");
+                             columns.Bound(p => p.iEstado).Title("Estado").ClientTemplate("#= iEstado == 0 ? '<span>Activo</span>' : '<span>Inactivo</span>' #");
+                        columns.Bound(p => p.dFechaActualizacion).Title("Fecha Actualización").Format("{0:dd/MM/yyyy HH:mm:ss}");
+                        columns.Bound(p => p.sUsuarioActualizacion).Title("Usuario Actualizacion");
+                    }).ToolBar(toolbar =>
+                    {
+                        toolbar.Template(
+            @<text>
+                <div class="row" style="display:contents">
+                    <a class="k-button k-button-icontext" title="Crear Nuevo" id="crearNuevo" >
+                        <span class="k-icon fas fa-plus colorIcons"></span> Crear nuevo
+                    </a>
+                </div>
+                <div class="buttonsRightToolbar">
+                    <a class="k-button k-button-icontext" href="#" onclick="exportarExcel('tablaMSubClub')">
+                        <span class="k-icon k-i-excel"></span>Exportar a Excel
+                    </a>
+                    <div class="refreshBtnContainer">
+                        <a class="k-pager-refresh k-link k-button k-button-icon colorIcons" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+                    </div>
+                    <span class="k-textbox k-grid-search k-display-flex">
+                        <input autocomplete="off" class="k-input" placeholder="Search..." title="Search..." type="text">
+                        <span class="k-input-icon">
+                            <span class="k-icon k-i-search colorIcons"></span>
+                        </span>
+                    </span>
+                </div>
+            </text>);
+                    })
+                .PersistSelection(true)
+                .Scrollable(sc => sc.Enabled(true))
+                .Pageable(pager => pager
+                    .Numeric(true)
+                    .Info(true)
+                    .PreviousNext(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 75, 100, 500, 1000 })
+                ).Search(s =>
+                {
+                    s.Field(c => c.sNombreSubClub);
+                    s.Field(c => c.sUsuarioActualizacion);
+                })
+                .Sortable(sortable => sortable
+                    .AllowUnsort(true)
+                    .SortMode(GridSortMode.MultipleColumn)
+                    .ShowIndexes(true)
+                )
+                .Filterable()
+                .ColumnMenu(menu =>
+                {
+                    menu.Columns(columns =>
+                    {
+                        columns
+                        .Sort("asc");
+                    });
+                })
+                .HtmlAttributes(new { @Class = "kendoClass tableGridKendo", data_idTable = "tablaMSubClub" })
+                .Events(events =>
+                {
+
+                    events.Edit("onEdit");
+                })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .ServerOperation(true)
+                .Sort(sort => sort.Add(s => s.dFechaActualizacion).Descending()) // Ordenar por dFechaActualizacion descendente
+                .PageSize(10)
+                .Read(read => read.Action("ReadMSubClub", "MSubClubs").Data("additionalDataIndexMSubClub"))
+                .Model(model =>
+                {
+                    model.Id(p => p.sIdClub);
+
+                    model.Field(p => p.dFechaActualizacion).Editable(true);
+                    model.Field(p => p.sUsuarioActualizacion).Editable(true);
+                })
+            .Update(update => update.Action("Edit", "MSubClubs"))
+            .Destroy(destroy => destroy.Action("Delete", "MSubClubs"))
+            .Create(create => create.Action("Create", "MSubClubs"))
+            
+         )
+         .Events(events =>
+         {
+
+             events.Edit("onEdit");
+             events.Remove("onGridRemove");
+         })
+        .Editable(editable => editable
+            .ConfirmDelete("¿Estás seguro de que deseas eliminar este registro?")
+            .DisplayDeleteConfirmation(false)
+            .Mode(GridEditMode.PopUp)
+            .CreateAt(GridInsertRowPosition.Top)
+
+
+        )
+
+
+	)
+    </div>
+</div>
+<div id="dialog-confirmacion" style="display: none">
+    ¿Estás seguro de que deseas eliminar este registro?
+</div>
+<script>
+
+    function onError(e) {
+        // Si hay errores de validación, mostrarlos en el popup y evitar que se cierre
+        if (e.errors) {
+            var validator = $("#crearNuevoWindow").kendoValidator().data("kendoValidator");
+            validator.hideMessages();
+
+            $.each(e.errors, function (propertyName, error) {
+                var input = $("[name='" + propertyName + "']", e.form);
+                validator.showMessagesFor(input);
+            });
+
+            e.preventDefault();
+        }
+    }
+
+    // Combobox de Id Club para el popup de Crear: muestra "Id - Nombre" (solo visual, el valor
+    // que se guarda sigue siendo únicamente sIdClub). No se toca initComboBoxIdClub (Global.js)
+    // para no afectar a otras pantallas que solo muestran el nombre.
+    function initComboBoxIdClubConNombre(container, fieldName, selectedValue) {
+        var comboBox = container.find("#" + fieldName);
+        $.ajax({
+            url: route + "/MClub/ReadMClub",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var items = (data.Data || []).map(function (item) {
+                    return $.extend({}, item, { sDisplayClub: item.sIdClub + " - " + item.sNombreClub });
+                });
+                comboBox.kendoComboBox({
+                    dataTextField: "sDisplayClub",
+                    dataValueField: "sIdClub",
+                    dataSource: items,
+                    suggest: true,
+                    filter: "contains",
+                    value: selectedValue
+                });
+            },
+            error: function (err) {
+                console.error("Error al obtener datos de MClubs: ", err);
+            }
+        });
+    }
+
+    function onEdit(e) {
+        var esCreacion = e.model.isNew();
+        var window = e.container.data("kendoWindow");
+        var updateButton = e.container.find(".k-grid-update");
+        updateButton.text("Guardar Cambios");
+
+        e.container.find("label[for='sIdClub']").text("Id Club");
+        e.container.find("label[for='sIdSubClub']").text("Id SubClub");
+        e.container.find("label[for='sNombreSubClub']").text("Nombre SubClub");
+        e.container.find("label[for='iEstado']").text("Estado");
+
+        // Campos administrativos: nunca los pone el usuario
+        e.container.find("#dFechaActualizacion").parents(".k-edit-field").hide();
+        e.container.find("label[for='dFechaActualizacion']").parents(".k-edit-label").hide();
+        e.container.find("#sUsuarioActualizacion").parents(".k-edit-field").hide();
+        e.container.find("label[for='sUsuarioActualizacion']").parents(".k-edit-label").hide();
+        var nameUser = $("#nameUserHiddenLayout").val();
+        e.container.find("#sUsuarioActualizacion").val(nameUser);
+
+        if (esCreacion) {
+            window.title("Crear Nuevo Registro");
+            initComboBoxIdClubConNombre(e.container, "sIdClub");
+        } else {
+            window.title("Editar Registro");
+            // sIdClub y sIdSubClub son parte de la clave primaria del registro: no deben poder
+            // editarse una vez creado.
+            e.container.find("#sIdClub").attr("readonly", true).addClass("k-state-disabled");
+            e.container.find("#sIdSubClub").attr("readonly", true).addClass("k-state-disabled");
+        }
+    }
+
+
+    function onGridRemove(e) {
+        e.preventDefault();
+        debugger;
+
+        var sIdClub = e.model.sIdClub;
+        var sIdSubClub = e.model.sIdSubClub;
+        debugger;
+        var dialog = $("#dialog-confirmacion").data("kendoDialog");
+        if (!dialog) {
+            dialog = $("#dialog-confirmacion").kendoDialog({
+                width: "450px",
+                title: "Confirmar",
+                closable: false,
+                modal: true,
+                actions: [
+                    {
+                        text: 'Cancelar',
+                        action: function () {
+
+                            dialog.close();
+                            window.location.reload(); // Recargar la página
+
+                        }
+                    },
+                    {
+                        text: 'Inactivar',
+                        primary: true,
+                        action: function () {
+                           // Realizar la eliminación
+                            $.ajax({
+                                url: '@Url.Action("Delete", "MSubClubs")', // URL de tu acción de eliminación
+                                type: 'POST',
+                                data: { sIdClub: sIdClub, sIdSubClub: sIdSubClub }, // Pasar el ID del registro a eliminar
+                                success: function(result) {
+                                    if (result.success) { // Asumiendo que tu acción retorna un objeto JSON con una propiedad 'success'
+                                        e.sender.dataSource.remove(e.model); // Elimina el registro de la grilla
+                                        dialog.close();
+                                        window.location.reload(); // Recargar la página
+
+                                        // Puedes mostrar un mensaje de éxito aquí si es necesario
+                                    } else {
+                                        alert("Error al eliminar el registro: " + result.message); // Muestra el mensaje de error si lo hay
+                                    }
+                                },
+                                error: function() {
+                                    alert("Ocurrió un error al intentar eliminar el registro.");
+                                }
+                            });
+
+                        }
+                    }
+                ]
+            }).data("kendoDialog");
+        }
+
+        // Abrir el diálogo
+        dialog.open();
+    }
+
+    $("#crearNuevo").click(function (e) {
+        e.preventDefault();
+        var grid = $("#tablaMSubClub").data("kendoGrid");
+        grid.addRow();
+    });
+
+</script>

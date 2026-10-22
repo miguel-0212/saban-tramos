@@ -1,0 +1,87 @@
+## .gitignore para Mantenimiento-Liquidaciones (ASP.NET MVC 5 / .NET Framework 4.6.2, Visual Studio 2022)
+
+## ---------- Build / compilación ----------
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ll]og/
+[Ll]ogs/
+
+# Mapas de depuración JS/CSS
+*.map
+## ---------- Visual Studio ----------
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.pidb
+*.opendb
+
+## ---------- Publish profiles (contienen datos de despliegue / credenciales potenciales) ----------
+# Los .pubxml en este proyecto no tienen contraseñas guardadas actualmente,
+# pero SÍ referencian servidores y rutas de despliegue. Se recomienda no versionarlos
+# o versionar solo una plantilla sin datos sensibles.
+Properties/PublishProfiles/*.pubxml.user
+*.azurePubxml
+*.pubxml.user
+
+## ---------- Paquetes NuGet (packages.config, no PackageReference) ----------
+packages/
+*.nupkg
+*.snupkg
+# NuGet v3's project.json files produce more ignorable files
+*.nuget.props
+*.nuget.targets
+
+## ---------- Resultado de "Publish" en carpeta local ----------
+bin/app.publish/
+*.publishproj
+*.pubxml.user
+
+## ---------- Archivos temporales de Office / Excel (si abres los .xlsx de prueba) ----------
+~$*.xlsx
+~$*.xls
+*.tmp
+
+## ---------- Documentación privada (no se versiona) ----------
+CLAUDE.md
+docs/planes/
+CONTINUIDAD.md
+
+## ---------- ReSharper / otras herramientas de VS ----------
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## ---------- IIS Express ----------
+[Ss]ervice[Dd]efinition.build.csdef
+*.cscfg
+iisexpress/
+
+## ---------- T4 / EF (mantener los archivos generados versionados es normal en Database First,
+## pero se ignoran cachés temporales del template) ----------
+*.tt.orig
+
+## ---------- Sistema operativo ----------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+## ---------- Web.config: OJO ----------
+# El Web.config de este proyecto contiene actualmente usuario y contraseña de SQL Server
+# en texto plano dentro de <connectionStrings>. Esto NO se está ignorando aquí porque
+# Web.config normalmente SÍ debe versionarse (rutas, bundles, etc.), pero se recomienda:
+#   1) Mover las cadenas de conexión reales a Web.config transforms no versionados, o
+#   2) Usar un usuario de BD sin privilegios de "sa" y credenciales fuera del repo.
+# Revisa esto ANTES de tu primer commit para no subir contraseñas al historial de git.
+
+## ---------- Otros ----------
+*.log
+*.bak
+*.swp
+*.orig

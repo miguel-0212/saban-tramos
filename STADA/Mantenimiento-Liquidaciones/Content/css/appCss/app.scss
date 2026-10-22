@@ -1,0 +1,36 @@
+﻿@import '../variables.scss';
+
+.bg-green {
+    background-color: #2ECC40 !important;
+}
+
+.bg-red {
+    background-color: #FF4136 !important;
+}
+
+.disabledSelectTable{
+    pointer-events:none;
+    opacity:0.5;
+}
+
+.removeSelectTable {
+    pointer-events: none;
+    opacity: 0.5;
+    > input {
+        display:none;
+    }
+}
+
+.selectTable {
+    > input {
+        border-color:black;
+    }
+}
+
+.textAreaDeniedOffer {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 6rem;
+    resize: none;
+    width: 27rem;
+}

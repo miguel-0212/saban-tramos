@@ -1,0 +1,91 @@
+﻿@model Mantenimiento_Liquidaciones.MSocios
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MSocios</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sCodSAP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sCodSAP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sNIF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sNIF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sNombreFcia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sNombreFcia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sDireccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sDireccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sCP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sCP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sPoblacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sPoblacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iVirtualId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iVirtualId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.sIdSocio }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>

@@ -1,0 +1,51 @@
+﻿@model Mantenimiento_Liquidaciones.MClub
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MClub</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sNombreClub)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sNombreClub)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iEstado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>

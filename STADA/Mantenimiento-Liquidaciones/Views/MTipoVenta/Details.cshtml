@@ -1,0 +1,59 @@
+﻿@model Mantenimiento_Liquidaciones.MTipoVenta
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MTipoVenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.STipoSubVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STipoSubVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTipoVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTipoVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sTipoVenta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sTipoVenta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dFechaActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dFechaActualizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sUsuarioActualizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sUsuarioActualizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdTipoSubVenta }) |
+    @Html.ActionLink("Volver a la lista", "Index")
+</p>

@@ -1,0 +1,34 @@
+@import 'variables.scss';
+.bodyLayout{
+    background-color:#f9f9f9;//#DDE5EE;
+    padding-top: 0px!important;
+}
+.layoutContainer{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px; 
+    margin-right: auto;
+    margin-left: auto;
+}
+.colorBlackApp{
+	//color:black!important;
+    color:$black!important;
+}
+.jumbotron {
+    padding: 2rem 1rem !important;
+    background-color:transparent !important;
+}
+@media (min-width: 576px){
+    .jumbotron {
+        padding: 1rem 2rem!important;
+    }
+}
+.container{
+    max-width:99%!important;
+}
+.topLayoutFake {
+    margin-top: 2vh;
+}
+.iconUserMove{
+    margin-right:5px;
+}

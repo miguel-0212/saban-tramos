@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Mantenimiento_Liquidaciones.MAgrupadorMayoristaClub>
+
+@{
+    ViewBag.Title = "Maestra Agrupador mayorista club";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Maestra Agrupador mayorista club</h2>
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create")
+</p>
+<div style="max-height: 300px; overflow-y: auto;">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.sIdMayorista)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sIdClub)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sIdRed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dFechaIni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dFechaFin)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sIdMayorista)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sIdClub)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sIdRed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dFechaIni)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dFechaFin)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.sIdMayoristaAgrupador }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.sIdMayoristaAgrupador }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.sIdMayoristaAgrupador })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
